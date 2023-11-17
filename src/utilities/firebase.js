@@ -1,6 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { useEffect, useState, useCallback } from "react";
-import { getDatabase, onValue, ref, update, remove, get } from "firebase/database";
+import { getDatabase, onValue, ref, update, get } from "firebase/database";
 import {
   getAuth,
   GoogleAuthProvider,
@@ -8,12 +8,18 @@ import {
   signInWithPopup,
   signOut,
   signInWithEmailAndPassword,
-  sendPasswordResetEmail
+  sendPasswordResetEmail,
 } from "firebase/auth";
 import { getStorage } from "firebase/storage";
 
 const firebaseConfig = {
-
+  apiKey: "AIzaSyC9SfPz2Ja98EBWiSgZdpgOdwYox23PdZE",
+  authDomain: "nu-campus-fridge.firebaseapp.com",
+  databaseURL: "https://nu-campus-fridge-default-rtdb.firebaseio.com",
+  projectId: "nu-campus-fridge",
+  storageBucket: "nu-campus-fridge.appspot.com",
+  messagingSenderId: "1048255345977",
+  appId: "1:1048255345977:web:215125b0a8713a014e24e8",
 };
 
 // Initialize Firebase
@@ -74,21 +80,12 @@ export const writeToDb = (path, value) => {
     .catch((error) => console.log(error));
 };
 
-export const removeDbData = (path) => {
-  remove(ref(database, path))
-    .then(() => console.log("Successfully removed from database."))
-    .catch((error) => console.log(error));
-};
-
 export const signInWithGoogle = async (navigate) => {
-  const result = await signInWithPopup(getAuth(app), new GoogleAuthProvider())
+  const result = await signInWithPopup(getAuth(app), new GoogleAuthProvider());
   // This gives you a Google Access Token. You can use it to access the Google API.
   const credential = GoogleAuthProvider.credentialFromResult(result);
   const token = credential.accessToken;
-  sessionStorage.setItem(
-    "Auth Token",
-    token
-  );
+  sessionStorage.setItem("Auth Token", token);
 
   const userId = result.user.uid;
 
@@ -102,12 +99,12 @@ export const signInWithGoogle = async (navigate) => {
       emailVerified: result.user.emailVerified,
       phoneNumber: result.user.phoneNumber,
       photoURL: result.user.photoURL,
-      providerId: result.user.providerId
+      providerId: result.user.providerId,
     };
     await writeToDb(`/users/${userId}`, profileData);
   }
 
-  navigate('/')
+  navigate("/");
 };
 
 const firebaseSignOut = () => signOut(getAuth(app));
@@ -133,16 +130,21 @@ export const firebaseSendPasswordResetEmail = (email) => {
       console.log(errorCode, errorMessage);
       alert("Error sending password reset email.");
     });
-}
+};
 
-export const signInWithEmailAndPassWD = async (inputs, navigate, setOpenAlert) => {
+export const signInWithEmailAndPassWD = async (
+  inputs,
+  navigate,
+  setOpenAlert
+) => {
   const authentication = getAuth(app);
   try {
-    const result = await signInWithEmailAndPassword(authentication, inputs.email, inputs.password);
-    sessionStorage.setItem(
-      "Auth Token",
-      result._tokenResponse.refreshToken
+    const result = await signInWithEmailAndPassword(
+      authentication,
+      inputs.email,
+      inputs.password
     );
+    sessionStorage.setItem("Auth Token", result._tokenResponse.refreshToken);
 
     const userId = result.user.uid;
 
@@ -156,26 +158,26 @@ export const signInWithEmailAndPassWD = async (inputs, navigate, setOpenAlert) =
         emailVerified: result.user.emailVerified,
         phoneNumber: result.user.phoneNumber,
         photoURL: result.user.photoURL,
-        providerId: result.user.providerId
+        providerId: result.user.providerId,
       };
       await writeToDb(`/users/${userId}`, profileData);
     }
 
     navigate("/");
-  }
-  catch (error) {
-    if (error.code == "auth/user-not-found" ||
-      error.code == "auth/wrong-password") {
+  } catch (error) {
+    if (
+      error.code == "auth/user-not-found" ||
+      error.code == "auth/wrong-password"
+    ) {
       setOpenAlert(true);
     } else if (error.code == "auth/invalid-login-credentials") {
       setOpenAlert(true);
     } else if (error.code == "auth/too-many-requests") {
       alert("Too many failed login attempts. Please try again later.");
-    }
-    else {
+    } else {
       console.log(error);
     }
-  };
+  }
 };
 
 export default database;
