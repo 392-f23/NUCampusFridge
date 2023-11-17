@@ -17,7 +17,7 @@ const Root = () => {
 
 
     useEffect(() => {
-        getDbData("/businesses").then((data) => {
+        getDbData("/Data").then((data) => {
             setBusiness(data);
         }).catch((error) => {
             console.log(error);
