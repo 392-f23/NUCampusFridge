@@ -44,16 +44,27 @@ const CardModal = ({ item }) => {
             component="h2"
             className="text-center text-gray-900"
           >
-            {item.Category}
+            {item.Item}
           </Typography>
           <div className="mt-2 px-7 py-3">
-            <p className="text-sm text-gray-500">Location: {item.Location}</p>
+            {item["Weight (in lbs)"] && (
+              <p className="text-sm text-gray-500">
+                Weight: {item["Weight (in lbs)"]} lbs
+              </p>
+            )}
+            {item["Arrival Temperature (in F)"] && (
+              <p className="text-sm text-gray-500">
+                Arrival Temperature: {item["Arrival Temperature (in F)"]} °F
+              </p>
+            )}
+            {item["If prepackaged, Quantity"] && (
+              <p className="text-sm text-gray-500">
+                {" "}
+                Quantity: {item["If prepackaged, Quantity"]}
+              </p>
+            )}
             <p className="text-sm text-gray-500">
-              {/* Weight: {item["Weight (in lbs)"]} lbs */}
-              Weight: 12 lbs
-            </p>
-            <p className="text-sm text-gray-500">
-              Arrival Temperature: 57.7 °F
+              Date Recovered: {item["Date Recovered"]}
             </p>
           </div>
         </Box>
