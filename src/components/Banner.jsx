@@ -13,19 +13,20 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
-import PetsIcon from '@mui/icons-material/Pets';
+import PetsIcon from "@mui/icons-material/Pets";
 import SearchBar from "./SearchBar";
 
-import { signInWithGoogle, signOut, useAuthState } from '../utilities/firebase';
-import { useProfile } from '../utilities/profile';
+import { signInWithGoogle, signOut, useAuthState } from "../utilities/firebase";
+import { useProfile } from "../utilities/profile";
 import { Logout } from "@mui/icons-material";
 
 import { Navigate, useNavigate } from "react-router-dom";
 
-const pages = [{
-  name: "Home",
-  link: "/"
-},
+const pages = [
+  {
+    name: "Home",
+    link: "/",
+  },
 ];
 
 const Banner = ({ handleSearch }) => {
@@ -73,10 +74,10 @@ const Banner = ({ handleSearch }) => {
               letterSpacing: ".3rem",
               color: "inherit",
               textDecoration: "none",
-              cursor: "pointer", // This line makes the cursor change to a hand (pointer) when hovering over the element
-              '&:hover': {
-                color: "rgba(240, 222, 255)"
-              }
+              cursor: "pointer",
+              "&:hover": {
+                color: "rgba(240, 222, 255)",
+              },
             }}
           >
             Campus Fridge
@@ -111,60 +112,49 @@ const Banner = ({ handleSearch }) => {
                 display: { xs: "block", md: "none" },
               }}
             >
-              {pages.map((page) =>
-                (!page.needAuth || user) && (
-                  <MenuItem key={`nav-m-${page.name}`} onClick={handleCloseNavMenu}>
-                    <Button variant="text" onClick={() => navigate(page.link)}>
-                      {page.name}
-                    </Button>
-                  </MenuItem>
-                )
+              {pages.map(
+                (page) =>
+                  (!page.needAuth || user) && (
+                    <MenuItem
+                      key={`nav-m-${page.name}`}
+                      onClick={handleCloseNavMenu}
+                    >
+                      <Button
+                        variant="text"
+                        onClick={() => navigate(page.link)}
+                      >
+                        {page.name}
+                      </Button>
+                    </MenuItem>
+                  )
               )}
             </Menu>
           </Box>
           <PetsIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
-          {/* <Typography
-            variant="h5"
-            noWrap
-            component="a"
-            href="/"
-            sx={{
-              mr: 2,
-              display: { xs: "flex", md: "none" },
-              flexGrow: 1,
-              fontFamily: "monospace",
-              fontWeight: 700,
-              letterSpacing: ".3rem",
-              color: "inherit",
-              textDecoration: "none",
-            }}
-          >
-            Central
-          </Typography> */}
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {pages.map((page) => {
               if (page.needAuth && !user) {
                 return null;
               }
-              return (<Button
-                key={`nav-${page.name}`}
-                sx={{ my: 2, color: "white", display: "block" }}
-                onClick={e => navigate(page.link)}
-              >
-                {page.name}
-              </Button>)
+              return (
+                <Button
+                  key={`nav-${page.name}`}
+                  sx={{ my: 2, color: "white", display: "block" }}
+                  onClick={(e) => navigate(page.link)}
+                >
+                  {page.name}
+                </Button>
+              );
             })}
           </Box>
-          <SearchBar
-            handleSearch={handleSearch}
-            className="p-2"
-          />
+          <SearchBar handleSearch={handleSearch} className="p-2" />
           {user ? (
             <Box sx={{ flexGrow: 0 }}>
               <Tooltip title="Open settings">
                 <IconButton
                   onClick={(event) => setAnchorElUser(event.currentTarget)}
-                  sx={{ p: 0 }}>
+                  sx={{ p: 0 }}
+                >
                   <Avatar alt={user.displayName} src={user.photoURL} />
                 </IconButton>
               </Tooltip>
@@ -217,6 +207,6 @@ const Banner = ({ handleSearch }) => {
       </Container>
     </AppBar>
   );
-}
+};
 
 export default Banner;
