@@ -11,6 +11,9 @@ import CardModal from "./CardModal";
 
 
 export default function ItemCard({ item }) {
+
+  console.log("Item in ItemCard:", item);
+
   return (
     <Card sx={{ maxWidth: 345 }}>
 

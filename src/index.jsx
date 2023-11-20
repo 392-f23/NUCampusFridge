@@ -9,6 +9,7 @@ import "leaflet/dist/leaflet.css";
 
 import ErrorPage from './pages/ErrorPage';
 import Root from './routes/root';
+import ItemPage from './pages/ItemPage';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -39,7 +40,7 @@ const router = createBrowserRouter([
     element: <Root />,
     errorElement: <ErrorPage />,
     children: [
-
+      { path: "/", element: <ItemPage /> },
     ],
   },
 ]);

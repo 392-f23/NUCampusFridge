@@ -1,24 +1,22 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
 import "./root.css";
-import useDealsStore from "../utilities/stores";
-import { getDbData } from "../utilities/firebase";
 import { useLocation } from 'react-router-dom';
 import Banner from "../components/Banner";
+import { getDbData } from "../utilities/firebase";
 
 const Root = () => {
-    const setBusiness = useDealsStore((state) => state.setBusiness);
-    const business = useDealsStore((state) => state.business);
+    const [data, setData] = useState(null);
     const { pathname } = useLocation();
 
     useEffect(() => {
         window.scrollTo(0, 0);
     }, [pathname]);
 
-
     useEffect(() => {
-        getDbData("/Data").then((data) => {
-            setBusiness(data);
+        getDbData("/Data").then((fetchedData) => {
+            setData(fetchedData);
+            console.log(fetchedData)
         }).catch((error) => {
             console.log(error);
         });
@@ -26,12 +24,10 @@ const Root = () => {
 
     return (
         <div className="App min-h-screen flex flex-col">
-            {pathname !== '/login' &&
-                <Banner />
-            }
+            {<Banner />}
             <div className="flex-grow">
-                {business ? (
-                    <Outlet />
+                {data ? (
+                    <Outlet context={{ items: data }} />
                 ) : (
                     <div className="text-center mt-8">
                         <p className="text-lg font-bold text-white">Loading...Paws for a moment</p>
