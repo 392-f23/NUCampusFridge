@@ -44,7 +44,7 @@ const CardModal = ({ item }) => {
             component="h2"
             className="text-center text-gray-900"
           >
-            {item.Item}
+            {item.Location}
           </Typography>
           <div className="mt-2 px-7 py-3">
             {item["Weight (in lbs)"] && (
