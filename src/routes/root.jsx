@@ -16,7 +16,6 @@ const Root = () => {
     useEffect(() => {
         getDbData("/Data").then((fetchedData) => {
             setData(fetchedData);
-            console.log(fetchedData)
         }).catch((error) => {
             console.log(error);
         });

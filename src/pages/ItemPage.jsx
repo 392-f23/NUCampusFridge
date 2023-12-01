@@ -22,10 +22,12 @@ const ItemPage = () => {
   }
 
   return (
-    <div>
+    <>
       <Banner handleSearch={setSearchQuery} />
-      <ItemsDisplay items={items} searchQuery={searchQuery} />
-    </div>
+      <div className="mt-32 mb-4 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <ItemsDisplay items={items} searchQuery={searchQuery} />
+      </div>
+    </>
   );
 };
 
