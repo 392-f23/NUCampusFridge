@@ -43,11 +43,8 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
     children: [
       { path: "/", element: <ItemPage /> },
-      { path: "/metrics", element: <MetricsPage />}
-      {
-        path: "newitem",
-        element: <NewItemPage />,
-      },
+      { path: "/metrics", element: <MetricsPage /> },
+      { path: "newitem", element: <NewItemPage /> },
     ],
   },
 ]);
