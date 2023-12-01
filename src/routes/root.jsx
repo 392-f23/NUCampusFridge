@@ -24,7 +24,6 @@ const Root = () => {
 
     return (
         <div className="App min-h-screen flex flex-col">
-            {<Banner />}
             <div className="flex-grow">
                 {data ? (
                     <Outlet context={{ items: data }} />
