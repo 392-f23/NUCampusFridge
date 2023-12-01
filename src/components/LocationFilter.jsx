@@ -12,8 +12,8 @@ const LocationFilter = ({ data, onLocationChange }) => {
     setSelectedLocations(event.target.value);
   };
 
-  const locations = data ? [...new Set(data.map(item => item.Location))] : [];
-
+  const locations = data ? [...new Set(Object.values(data).map(item => item.Location))] : [];
+  
   return (
     <FormControl sx={{ m: 1, width: 200 }}>
       <InputLabel id="location-multiple-checkbox-label">Location</InputLabel>

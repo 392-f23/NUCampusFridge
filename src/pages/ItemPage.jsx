@@ -33,10 +33,10 @@ const ItemPage = () => {
     }));
   };
 
-  const filteredItems = items.filter((item) => {
+  const filteredItems = Object.values(items).filter((item) => {
     // Filter by search query
     const matchesSearchQuery = item.name ? item.name.toLowerCase().includes(searchQuery.toLowerCase()) : false;
-    
+
     // Filter by location
     const matchesLocation = filters.location.length === 0 || (item.Location && filters.location.includes(item.Location));
 

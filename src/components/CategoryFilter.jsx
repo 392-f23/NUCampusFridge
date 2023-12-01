@@ -12,8 +12,8 @@ const CategoryFilter = ({ data, onCategoryChange }) => {
     setSelectedCategories(event.target.value);
   };
 
-  const categories = data ? [...new Set(data.map(item => item.Category))] : [];
-
+  const categories = data ? [...new Set(Object.values(data).map(item => item.Category))] : [];
+  
   return (
     <FormControl sx={{ m: 1, width: 200 }}>
       <InputLabel id="category-multiple-checkbox-label">Category</InputLabel>
