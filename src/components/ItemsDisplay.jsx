@@ -1,16 +1,18 @@
 import React, { useState } from "react";
 import ItemCard from "./ItemCard";
-import Masonry from '@mui/lab/Masonry';
-import Pagination from '@mui/material/Pagination';
+import Masonry from "@mui/lab/Masonry";
+import Pagination from "@mui/material/Pagination";
 
-const PAGE_SIZE = 30; // Number of deals per page
+const PAGE_SIZE = 30;
 
 const ItemsDisplay = ({ items, searchQuery }) => {
   const [currentPage, setCurrentPage] = useState(1);
 
   // Filter items based on search query
-  const filteredItems = items.filter(item => 
-    item.Location && item.Location.toLowerCase().includes(searchQuery.toLowerCase())
+  const filteredItems = items.filter(
+    (item) =>
+      item.Location &&
+      item.Location.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   const totalPages = Math.ceil(filteredItems.length / PAGE_SIZE); // Use filteredItems for pagination
@@ -33,11 +35,14 @@ const ItemsDisplay = ({ items, searchQuery }) => {
   }
 
   return (
-    <div className="deals-container" style={{ paddingTop: '75px' }}>
+    <div className="deals-container" style={{ paddingTop: "75px" }}>
       <div className="events-grid flex justify-center w-full mt-6 px-6">
         <Masonry columns={{ xs: 1, sm: 2, md: 3, lg: 4, xl: 5 }}>
           {currentItems.map((item) => (
-            <div key={`deal-${item.id}`} className="event-card flex justify-center">
+            <div
+              key={`deal-${item.id}`}
+              className="event-card flex justify-center"
+            >
               <ItemCard item={item} />
             </div>
           ))}
