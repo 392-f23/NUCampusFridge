@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
-import Banner from "../components/Banner";
-import { LineChart, Line, PieChart, Pie, Tooltip, XAxis, YAxis, Cell, Legend, CartesianGrid } from 'recharts';
-import { Paper, Typography, Grid, Switch, FormControlLabel } from '@mui/material';
-
+import { LineChart, Line, PieChart, Pie, Tooltip, XAxis, YAxis, Cell, Legend, CartesianGrid, ResponsiveContainer } from 'recharts';
+import { Paper, Typography, Switch, FormControlLabel } from '@mui/material';
 import { getDbData } from "../utilities/firebase";
 
 const MetricsPage = () => {
@@ -16,13 +14,13 @@ const MetricsPage = () => {
 
     useEffect(() => {
         getDbData("/Data")
-          .then((fetchedItems) => {
-            setItems(fetchedItems);
-          })
-          .catch((error) => {
-            console.error("Error fetching items:", error);
-          });
-      }, []);
+            .then((fetchedItems) => {
+                setItems(fetchedItems);
+            })
+            .catch((error) => {
+                console.error("Error fetching items:", error);
+            });
+    }, []);
 
     useEffect(() => {
         processData(items);
@@ -40,7 +38,7 @@ const MetricsPage = () => {
         // Optionally, you can add further validation to check if year, month, and day are numeric
 
         return `${month}/${day}/${year}`;
-    
+
         /*// Reformat dateStr from 'YYYYMMDD' to 'YYYY-MM-DD'
         const year = dateStr.substring(0, 4);
         const month = dateStr.substring(4, 6);
@@ -55,7 +53,7 @@ const MetricsPage = () => {
         // Format the date as 'MM/DD/YYYY'
         return date.toLocaleDateString();*/
     };
-    
+
     const processData = (items) => {
         let sortedData = Object.entries(items).sort((a, b) => a[1]['Date Recovered'] - b[1]['Date Recovered']);
         let lineChartData = {};
@@ -122,89 +120,84 @@ const MetricsPage = () => {
     };
 
     return (
-        <Grid container spacing={3} style={{ marginTop: '70px'}}>
-            <Typography variant="h6" style={titleStyle} gutterBottom>
-                Food Collection Metrics
+        <div className="mt-16 flex flex-col p-4 md:p-8">
+            <Typography variant="h4" className="text-center text-2xl md:text-3xl lg:text-4xl py-4 mb-5 text-gray-800">
+                Metrics
             </Typography>
-            <Grid item xs={12} style={chartContainerStyle}>
-                    
-                <Paper elevation={3}>
-                    <Typography variant="h6" style={titleStyle} gutterBottom>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <Paper elevation={3} className="p-4">
+                    <Typography variant="h6" className="mb-5 text-center text-xl text-gray-800">
                         Collection Counts
                     </Typography>
                     <FormControlLabel
                         control={<Switch checked={graphType === 'cumulative'} onChange={() => setGraphType(graphType === 'daily' ? 'cumulative' : 'daily')} />}
                         label="Cumulative"
                     />
-                    <LineChart width={600} height={300} data={lineData} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
-                        <CartesianGrid strokeDasharray="3 3" />
-                        <XAxis dataKey="formattedDate" />
-                        <YAxis />
-                        <Tooltip />
-                        <Legend />
-                        <Line type="monotone" dataKey="poundsCollected" name="Pounds Collected"stroke="#8884d8" />
-                        <Line type="monotone" dataKey="prepackagedGoods" name= "Packages Collected" stroke="#82ca9d" />
-                    </LineChart>
+                    <ResponsiveContainer width="90%" height="80%" className="mx-auto">
+                        <LineChart data={lineData} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
+                            <CartesianGrid strokeDasharray="3 3" />
+                            <XAxis dataKey="formattedDate" />
+                            <YAxis />
+                            <Tooltip />
+                            <Legend />
+                            <Line type="monotone" dataKey="poundsCollected" name="Pounds Collected" stroke="#8884d8" />
+                            <Line type="monotone" dataKey="prepackagedGoods" name="Packages Collected" stroke="#82ca9d" />
+                        </LineChart>
+                    </ResponsiveContainer>
                 </Paper>
-            </Grid>
 
-            <Grid item xs={12} style={chartContainerStyle}>
-                <Paper elevation={3}>
-                    <Typography variant="h6" style={titleStyle} gutterBottom>
+                <Paper elevation={3} className="p-4">
+                    <Typography variant="h6" className="mb-5 text-center text-xl text-gray-800">
                         Category Distribution
                     </Typography>
-                    <PieChart width={800} height={400}>
-                        <Pie 
-                            dataKey="value" 
-                            isAnimationActive={true} 
-                            data={pieDataCategory} 
-                            cx={400} 
-                            cy={200} 
-                            outerRadius={150} 
-                            fill="#8884d8" 
-                            label 
-                            labelLine={false}
-                        >
-                            {
-                                pieDataCategory.map((entry, index) => (
-                                    <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]}/>
-                                ))
-                            }
-                        </Pie>
-                        <Tooltip />
-                    </PieChart>
-
+                    <ResponsiveContainer width="90%" height="90%" className="mx-auto">
+                        <PieChart>
+                            <Pie
+                                dataKey="value"
+                                isAnimationActive={true}
+                                data={pieDataCategory}
+                                fill="#8884d8"
+                                label
+                                labelLine={false}
+                            >
+                                {
+                                    pieDataCategory.map((entry, index) => (
+                                        <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                                    ))
+                                }
+                            </Pie>
+                            <Tooltip />
+                        </PieChart>
+                    </ResponsiveContainer>
                 </Paper>
-            </Grid>
 
-            <Grid item xs={12} style={chartContainerStyle}>
-                <Paper elevation={3}>
-                    <Typography variant="h6" style={titleStyle} gutterBottom>
+                <Paper elevation={3} className="p-4">
+                    <Typography variant="h6" className="mb-5 text-center text-xl text-gray-800">
                         Location Distribution
                     </Typography>
-                    <PieChart width={800} height={400}>
-                        <Pie 
-                            dataKey="value" 
-                            isAnimationActive={true} 
-                            data={pieDataLocation} 
-                            cx={400} 
-                            cy={200} 
-                            outerRadius={150} 
-                            fill="#8884d8" 
-                            label 
+                    <ResponsiveContainer width="90%" height="90%" className="mx-auto">
+                    <PieChart>
+                        <Pie
+                            dataKey="value"
+                            isAnimationActive={true}
+                            data={pieDataLocation}
+                            fill="#8884d8"
+                            label
                             labelLine={false}
                         >
                             {
                                 pieDataLocation.map((entry, index) => (
-                                    <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]}/>
+                                    <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                                 ))
                             }
                         </Pie>
                         <Tooltip />
                     </PieChart>
+                    </ResponsiveContainer>
                 </Paper>
-            </Grid>
-        </Grid>
+            </div>
+        </div>
     );
 };
 
