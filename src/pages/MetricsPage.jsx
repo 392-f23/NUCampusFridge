@@ -29,7 +29,31 @@ const MetricsPage = () => {
     }, [items, graphType]);
 
     const formatDate = (dateStr) => {
-        return `${dateStr.substring(4, 6)}/${dateStr.substring(6, 8)}/${dateStr.substring(0, 4)}`;
+        if (!dateStr || dateStr.length !== 8) {
+            return null;
+        }
+
+        const year = dateStr.substring(0, 4);
+        const month = dateStr.substring(4, 6);
+        const day = dateStr.substring(6, 8);
+
+        // Optionally, you can add further validation to check if year, month, and day are numeric
+
+        return `${month}/${day}/${year}`;
+    
+        /*// Reformat dateStr from 'YYYYMMDD' to 'YYYY-MM-DD'
+        const year = dateStr.substring(0, 4);
+        const month = dateStr.substring(4, 6);
+        const day = dateStr.substring(6, 8);
+        const formattedStr = `${year}-${month}-${day}`;
+    
+        const date = new Date(Date.parse(dateStr));
+        if (isNaN(date.getTime())) {
+            return 'Invalid Date'; // Date.parse returns NaN if the date is invalid
+        }
+    
+        // Format the date as 'MM/DD/YYYY'
+        return date.toLocaleDateString();*/
     };
     
     const processData = (items) => {
@@ -43,6 +67,10 @@ const MetricsPage = () => {
         sortedData.forEach(([key, item]) => {
             const rawDate = item['Date Recovered'];
             const formattedDate = formatDate(rawDate);
+
+            if (!formattedDate) {
+                return; // Skip this iteration if the date is invalid
+            }
 
             // Line chart data
             if (!lineChartData[rawDate]) {
@@ -98,7 +126,7 @@ const MetricsPage = () => {
             <Typography variant="h6" style={titleStyle} gutterBottom>
                 Food Collection Metrics
             </Typography>
-            <Grid item xs={12} md={6} lg={4} style={chartContainerStyle}>
+            <Grid item xs={12} style={chartContainerStyle}>
                     
                 <Paper elevation={3}>
                     <Typography variant="h6" style={titleStyle} gutterBottom>
@@ -120,7 +148,7 @@ const MetricsPage = () => {
                 </Paper>
             </Grid>
 
-            <Grid item xs={12} md={6} lg={4} style={chartContainerStyle}>
+            <Grid item xs={12} style={chartContainerStyle}>
                 <Paper elevation={3}>
                     <Typography variant="h6" style={titleStyle} gutterBottom>
                         Category Distribution
@@ -149,7 +177,7 @@ const MetricsPage = () => {
                 </Paper>
             </Grid>
 
-            <Grid item xs={12} md={6} lg={4} style={chartContainerStyle}>
+            <Grid item xs={12} style={chartContainerStyle}>
                 <Paper elevation={3}>
                     <Typography variant="h6" style={titleStyle} gutterBottom>
                         Location Distribution
