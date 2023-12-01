@@ -11,7 +11,7 @@ import ErrorPage from "./pages/ErrorPage";
 import Root from "./routes/root";
 import ItemPage from "./pages/ItemPage";
 import MetricsPage from "./pages/MetricsPage";
-// import NewItemPage from "./pages/NewItemPage";
+import NewItemPage from "./pages/NewItemPage";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
@@ -44,10 +44,10 @@ const router = createBrowserRouter([
     children: [
       { path: "/", element: <ItemPage /> },
       { path: "/metrics", element: <MetricsPage />}
-      // {
-      //   path: "newitem",
-      //   element: <NewItemPage />,
-      // },
+      {
+        path: "newitem",
+        element: <NewItemPage />,
+      },
     ],
   },
 ]);
