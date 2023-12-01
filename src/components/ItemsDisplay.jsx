@@ -50,6 +50,11 @@ const descendingComparator = (a, b, orderBy) => {
   return 0;
 };
 
+// Filter items based on search query
+const filteredItems = Object.keys(items).filter(key =>
+  items[key].Location && items[key].Location.toLowerCase().includes(searchQuery.toLowerCase())
+).map(key => items[key]);
+
 const getComparator = (order, orderBy) => {
   return order === 'desc'
     ? (a, b) => descendingComparator(a, b, orderBy)

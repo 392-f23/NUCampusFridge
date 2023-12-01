@@ -40,6 +40,7 @@
     "react-leaflet-google-layer": "^2.2.0",
     "react-router-dom": "^6.18.0",
     "react-share-on-social": "^1.0.12",
+    "recharts": "^2.10.2",
     "sort-by": "^1.2.0",
     "uuid": "^9.0.1",
     "vanilla-jsoneditor": "^0.18.12",
