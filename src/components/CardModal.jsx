@@ -16,6 +16,13 @@ const style = {
   p: 4,
 };
 
+const formatDate = (dateString) => {
+  const year = dateString.substring(0, 4);
+  const month = dateString.substring(4, 6);
+  const day = dateString.substring(6, 8);
+  return `${month}/${day}/${year}`;
+};
+
 const CardModal = ({ item }) => {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
@@ -59,12 +66,11 @@ const CardModal = ({ item }) => {
             )}
             {item["If prepackaged, Quantity"] && (
               <p className="text-sm text-gray-500">
-                {" "}
                 Quantity: {item["If prepackaged, Quantity"]}
               </p>
             )}
             <p className="text-sm text-gray-500">
-              Date Recovered: {item["Date Recovered"]}
+              Date Recovered: {formatDate(item["Date Recovered"])}
             </p>
           </div>
         </Box>

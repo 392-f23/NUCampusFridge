@@ -27,6 +27,10 @@ const pages = [
     name: "Home",
     link: "/",
   },
+  {
+    name: "Metrics",
+    link: "/metrics"
+  }
 ];
 
 const Banner = ({ handleSearch }) => {
