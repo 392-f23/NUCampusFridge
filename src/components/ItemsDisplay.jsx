@@ -33,10 +33,10 @@ const processWeightOrQuantity = (row) => {
 };
 
 const generateRows = (items) => {
-  return items.map((item, index) => ({
-    ...item,
+  return Object.entries(items).map(([key, value], index) => ({
+    ...value,
     id: index,
-    weightOrQuantity: processWeightOrQuantity(item),
+    weightOrQuantity: processWeightOrQuantity(value),
   }));
 };
 
