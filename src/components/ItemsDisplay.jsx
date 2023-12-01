@@ -11,7 +11,7 @@ const ItemsDisplay = ({ items, searchQuery }) => {
   const [currentPage, setCurrentPage] = useState(1);
 
   // Filter items based on search query
-  const filteredItems = items.filter(
+  const filteredItems = Object.values(items).filter(
     (item) =>
       item.Location &&
       item.Location.toLowerCase().includes(searchQuery.toLowerCase())
