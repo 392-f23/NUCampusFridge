@@ -5,7 +5,8 @@ import "./index.css";
 import CssBaseline from "@mui/material/CssBaseline";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import "leaflet/dist/leaflet.css";
+import { LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 
 import ErrorPage from "./pages/ErrorPage";
 import Root from "./routes/root";
@@ -51,11 +52,13 @@ const router = createBrowserRouter([
 
 root.render(
   <React.StrictMode>
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
-      <NextUIProvider>
-        <RouterProvider router={router} />
-      </NextUIProvider>
-    </ThemeProvider>
+    <LocalizationProvider dateAdapter={AdapterDateFns}>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <NextUIProvider>
+          <RouterProvider router={router} />
+        </NextUIProvider>
+      </ThemeProvider>
+    </LocalizationProvider>
   </React.StrictMode>
 );

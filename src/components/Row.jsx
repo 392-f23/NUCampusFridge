@@ -60,7 +60,9 @@ function Row(props) {
                                 Item Details
                             </Typography>
                             <Typography variant="body2">More info about {row.Item}</Typography>
-                            <Image src={row.ImageURL} alt={row.Item} width={300} height={300} />
+                            {row.ImageURL && (
+                                <Image src={row.ImageURL} alt={row.Item} width={300} height={300} />
+                            )}
                             <div>
                                 {row["Arrival Temperature (in F)"] && (
                                     <p className="text-sm text-gray-500">

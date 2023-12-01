@@ -20,7 +20,8 @@ import { signInWithGoogle, signOut, useAuthState } from "../utilities/firebase";
 import { useProfile } from "../utilities/profile";
 import { Logout } from "@mui/icons-material";
 
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import useItemsStore from "../utilities/stores";
 
 const pages = [
   {
@@ -33,13 +34,13 @@ const pages = [
   }
 ];
 
-const Banner = ({ handleSearch }) => {
+const Banner = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const [profile, profileLoading, profileError] = useProfile();
+  const setSearchQuery = useItemsStore((state) => state.setSearchQuery);
 
   const [user] = useAuthState();
-
   const navigate = useNavigate();
 
   const login = () => {
@@ -59,6 +60,10 @@ const Banner = ({ handleSearch }) => {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
+
+  const handleSearch = (query) => {
+    setSearchQuery(query);
+  }
 
   return (
     <AppBar position="fixed">

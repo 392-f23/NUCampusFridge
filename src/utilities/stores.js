@@ -11,14 +11,9 @@ const useItemsStore = create((set) => ({
         writeToDb(`/Data/${item.id}`, item);
         return { items };
     }),
-    
     setUser: (user) => set({ user }),
     searchQuery: "",
     setSearchQuery: (searchQuery) => set({ searchQuery }),
-    business: null,
-    setBusiness: (business) => set({ business }),
-    favoriteDeals: [],
-    setFavoriteDeals: (favoriteDeals) => set({ favoriteDeals }),
 }));
 
 export default useItemsStore;
