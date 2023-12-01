@@ -8,24 +8,23 @@ const DateFilter = ({ onDateChange }) => {
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
 
-  const handleStartDateChange = (newStartDate) => {
-    const formattedStartDate = formatDate(newStartDate);
-    setStartDate(formattedStartDate);
-    onDateChange([formattedStartDate, endDate]);
-  };
-
-  const handleEndDateChange = (newEndDate) => {
-    const formattedEndDate = formatDate(newEndDate);
-    setEndDate(formattedEndDate);
-    onDateChange([startDate, formattedEndDate]);
-  };
-
-  // Format date to a standard format or any specific format you need
-  const formatDate = (date) => {
+  const formatDateForFilter = (date) => {
     if (!date) return null;
-    // Format the date to 'YYYY-MM-DD' or any format you need
-    const dateString = date.toISOString().split('T')[0];
-    return new Date(dateString);
+    return `${date.getFullYear()}${(date.getMonth()).toString().padStart(2, '0')}${date.getDate().toString().padStart(2, '0')}`;
+  };
+
+  const handleStartDateChange = (newStartDate) => {
+    const formattedStartDate = newStartDate ? formatDateForFilter(newStartDate) : null;
+    console.log("DateFilter - Setting Start Date:", formattedStartDate);
+    setStartDate(newStartDate);
+    onDateChange([formattedStartDate, endDate ? formatDateForFilter(endDate) : null]);
+  };
+  
+  const handleEndDateChange = (newEndDate) => {
+    const formattedEndDate = newEndDate ? formatDateForFilter(newEndDate) : null;
+    console.log("DateFilter - Setting End Date:", formattedEndDate);
+    setEndDate(newEndDate);
+    onDateChange([startDate ? formatDateForFilter(startDate) : null, formattedEndDate]);
   };
 
   return (

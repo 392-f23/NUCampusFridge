@@ -15,50 +15,34 @@ const ItemPage = () => {
   useEffect(() => {
     getDbData("/Data")
       .then((fetchedItems) => {
-        setItems(fetchedItems || []);
+        setItems(fetchedItems);
       })
       .catch((error) => {
         console.error("Error fetching items:", error);
       });
   }, []);
 
-  if (items.length === 0) {
-    return <div>Loading items...</div>;
-  }
-
-  const handleFiltersChange = (filterType, value) => {
+  const handleFiltersChange = ({ type, value }) => {
+    const updatedType = type === "date" ? "dateRange" : type;
+    console.log(`ItemPage - Received ${type} filter:`, value);
     setFilters(prevFilters => ({
       ...prevFilters,
-      [filterType]: value,
+      [type]: value,
     }));
+    console.log("changed val: ", filters);
   };
-
-  const filteredItems = Object.values(items).filter((item) => {
-    // Filter by search query
-    const matchesSearchQuery = item.name ? item.name.toLowerCase().includes(searchQuery.toLowerCase()) : false;
-
-    // Filter by location
-    const matchesLocation = filters.location.length === 0 || (item.Location && filters.location.includes(item.Location));
-
-    // Filter by category
-    const matchesCategory = filters.category.length === 0 || (item.Category && filters.category.includes(item.Category));
-
-    // Filter by date range
-    const [startDate, endDate] = filters.dateRange;
-    const itemDate = item.date instanceof Date ? item.date : null;
-    const matchesDateRange = (!startDate || (itemDate && itemDate >= startDate)) && (!endDate || (itemDate && itemDate <= endDate));
-
-    return matchesSearchQuery && matchesLocation && matchesCategory && matchesDateRange;
-  });
+  
+  
 
   return (
     <div>
-      <Banner 
-        handleSearch={setSearchQuery} 
-        data={items} // Ensure that 'items' data is passed here
+      <Banner
+        handleSearch={setSearchQuery}
+        data={items}
         onFiltersChange={handleFiltersChange}
+        selectedFilters={filters}
       />
-      <ItemsDisplay items={filteredItems} />
+      <ItemsDisplay items={items} searchQuery={searchQuery} filters={filters} />
     </div>
   );
 };
