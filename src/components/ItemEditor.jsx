@@ -67,7 +67,7 @@ const ItemEditor = () => {
     itemToAdd.Category = itemToAdd.Category
       ? itemToAdd.Category.split(",").map((cat) => cat.trim())
       : [];
-    itemToAdd.id = "ITEM-" + uuid();
+    itemToAdd.id = uuid();
     addItem(itemToAdd);
     setNewItem(DEFAULT_ITEM);
     setOpenSuccess(true);
