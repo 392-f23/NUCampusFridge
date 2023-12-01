@@ -39,18 +39,21 @@ const Banner = () => {
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const [profile, profileLoading, profileError] = useProfile();
   const setSearchQuery = useItemsStore((state) => state.setSearchQuery);
+  const setUser = useItemsStore((state) => state.setUser);
 
   const [user] = useAuthState();
   const navigate = useNavigate();
 
-  const login = () => {
-    signInWithGoogle();
-    setAnchorElUser(null);
+  const login = async () => {
+    const userObject = await signInWithGoogle();
+    setAnchorElUser(document.getElementsByClassName("MuiAvatar-root")[0]);
+    setUser(userObject);
   };
 
   const logout = () => {
     signOut();
-    setFavoriteEvents([]);
+    setUser(null);
+    navigate("/");
   };
 
   const handleCloseNavMenu = () => {

@@ -82,11 +82,13 @@ export const writeToDb = (path, value) => {
 
 export const signInWithGoogle = async (navigate) => {
   const result = await signInWithPopup(getAuth(app), new GoogleAuthProvider());
-  // This gives you a Google Access Token. You can use it to access the Google API.
-  const credential = GoogleAuthProvider.credentialFromResult(result);
-  const token = credential.accessToken;
-  sessionStorage.setItem("Auth Token", token);
-
+  const email = result.user.email;
+  // check if the user is a Northwestern user
+  if (!email.endsWith("northwestern.edu")) {
+    alert("Please sign in with your Northwestern email.");
+    firebaseSignOut();
+    return;
+  }
   const userId = result.user.uid;
 
   // Check if the user already exists
@@ -104,7 +106,7 @@ export const signInWithGoogle = async (navigate) => {
     await writeToDb(`/users/${userId}`, profileData);
   }
 
-  navigate("/");
+  return result.user;
 };
 
 const firebaseSignOut = () => signOut(getAuth(app));
@@ -144,8 +146,6 @@ export const signInWithEmailAndPassWD = async (
       inputs.email,
       inputs.password
     );
-    sessionStorage.setItem("Auth Token", result._tokenResponse.refreshToken);
-
     const userId = result.user.uid;
 
     // Check if the user already exists

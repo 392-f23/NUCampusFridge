@@ -3,10 +3,12 @@ import Banner from "../components/Banner";
 import ItemsDisplay from "../components/ItemsDisplay";
 import { getDbData } from "../utilities/firebase";
 import AppSpeedDial from "../components/SpeedDial";
+import useItemsStore from "../utilities/stores";
 
 const ItemPage = () => {
   const [items, setItems] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
+  const user = useItemsStore((state) => state.user);
 
   useEffect(() => {
     getDbData("/Data")
@@ -28,7 +30,9 @@ const ItemPage = () => {
       <div className="mt-32 mb-4 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <ItemsDisplay items={items} searchQuery={searchQuery} />
       </div>
-      <AppSpeedDial />
+      {user && (
+        <AppSpeedDial />
+      )}
     </>
   );
 };

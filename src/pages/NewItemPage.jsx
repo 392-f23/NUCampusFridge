@@ -5,10 +5,9 @@ import { Navigate } from "react-router-dom";
 const NewItemPage = () => {
   const user = useItemsStore((state) => state.user);
 
-  // Uncomment this if authentication check is needed
-  // if (!user) {
-  //   return <Navigate to="/" replace />;
-  // }
+  if (!user) {
+    return <Navigate to="/" replace />;
+  }
 
   return (
     <div className="flex justify-center items-center mt-14 md:mt-20">
