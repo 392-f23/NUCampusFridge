@@ -1,0 +1,808 @@
+{
+  "Admin": "",
+  "Data": [
+    {
+      "Category": "Bread",
+      "Check after prepped for delivery": 0,
+      "Date Recovered": "20231103",
+      "If prepackaged, Quantity": "1 package",
+      "Item": "cinnamon raisin",
+      "Location": "Norris - Catering"
+    },
+    {
+      "Category": "Bread",
+      "Check after prepped for delivery": 0,
+      "Date Recovered": "20231103",
+      "If prepackaged, Quantity": "1 package",
+      "Item": "plain bagels",
+      "Location": "Norris - Catering"
+    },
+    {
+      "Category": "Bread",
+      "Check after prepped for delivery": 0,
+      "Date Recovered": "20231103",
+      "If prepackaged, Quantity": 12,
+      "Item": "mini white rolls",
+      "Location": "Norris - Catering"
+    },
+    {
+      "Category": "Bread",
+      "Check after prepped for delivery": 0,
+      "Date Recovered": "20231103",
+      "If prepackaged, Quantity": 24,
+      "Item": "rolls",
+      "Location": "Norris - Catering"
+    },
+    {
+      "Category": "Bread",
+      "Check after prepped for delivery": 0,
+      "Date Recovered": "20231103",
+      "If prepackaged, Quantity": "4 (2 packages of 2)",
+      "Item": "sub rolls",
+      "Location": "Norris - Catering"
+    },
+    {
+      "Category": "Bread",
+      "Check after prepped for delivery": 0,
+      "Date Recovered": "20231103",
+      "Item": "croissants",
+      "Location": "Norris - Catering"
+    },
+    {
+      "Category": "Bread",
+      "Check after prepped for delivery": 0,
+      "Date Recovered": "20231103",
+      "If prepackaged, Quantity": 3,
+      "Item": "sandwich rolls",
+      "Location": "Norris - Catering"
+    },
+    {
+      "Category": "Bread",
+      "Check after prepped for delivery": 0,
+      "Date Recovered": "20231103",
+      "If prepackaged, Quantity": "2 packages",
+      "Item": "tortillas",
+      "Location": "Norris - Catering"
+    },
+    {
+      "Category": "Bread",
+      "Check after prepped for delivery": 0,
+      "Date Recovered": "20231103",
+      "If prepackaged, Quantity": 2,
+      "Item": "rye loaves",
+      "Location": "Norris - Catering"
+    },
+    {
+      "Category": "Bread",
+      "Check after prepped for delivery": 0,
+      "Date Recovered": "20231103",
+      "If prepackaged, Quantity": 4,
+      "Item": "loaves",
+      "Location": "Norris - Catering"
+    },
+    {
+      "Category": "Bread",
+      "Check after prepped for delivery": 0,
+      "Date Recovered": "20231103",
+      "If prepackaged, Quantity": "72 ( 3 bags)",
+      "Item": "rolls",
+      "Location": "Norris - Catering"
+    },
+    {
+      "Check after prepped for delivery": 0,
+      "Date Recovered": "20231103",
+      "Item": "...",
+      "Location": "Norris - Retail"
+    },
+    {
+      "Category": "Fruit",
+      "Check after prepped for delivery": 0,
+      "Date Recovered": "20231103",
+      "If prepackaged, Quantity": 3,
+      "Item": "cantaloupe",
+      "Location": "Global Hub"
+    },
+    {
+      "Category": "Fruit",
+      "Check after prepped for delivery": 0,
+      "Date Recovered": "20231103",
+      "If prepackaged, Quantity": 6,
+      "Item": "honeydew",
+      "Location": "Global Hub"
+    },
+    {
+      "Category": "Meat/Main",
+      "Check after prepped for delivery": 0,
+      "Date Recovered": "20231103",
+      "If prepackaged, Quantity": 1,
+      "Item": "ind. sandwich",
+      "Location": "Global Hub"
+    },
+    {
+      "Category": "Meat/Main",
+      "Check after prepped for delivery": 0,
+      "Date Recovered": "20231103",
+      "If prepackaged, Quantity": 7,
+      "Item": "ind. wraps",
+      "Location": "Global Hub"
+    },
+    {
+      "Category": "Veggie",
+      "Check after prepped for delivery": 0,
+      "Date Recovered": "20231103",
+      "If prepackaged, Quantity": 27,
+      "Item": "ind. salad",
+      "Location": "Global Hub"
+    },
+    {
+      "Arrival Temperature (in F)": 57.7,
+      "Category": "Fruit",
+      "Check after prepped for delivery": 0,
+      "Date Prepped": 1699574400000,
+      "Date Recovered": "20231103",
+      "Item": "assorted fruit",
+      "Location": "Global Hub",
+      "Weight (in lbs)": 12
+    },
+    {
+      "Arrival Temperature (in F)": 60,
+      "Category": "Fruit",
+      "Check after prepped for delivery": 0,
+      "Date Prepped": 1699574400000,
+      "Date Recovered": "20231103",
+      "Item": "assorted fruit",
+      "Location": "Global Hub",
+      "Weight (in lbs)": 12
+    },
+    {
+      "Arrival Temperature (in F)": 88,
+      "Category": "Grain (not bread)",
+      "Check after prepped for delivery": 0,
+      "Date Recovered": "20231103",
+      "Item": "mac and cheese",
+      "Location": "Global Hub",
+      "Weight (in lbs)": 15
+    },
+    {
+      "Arrival Temperature (in F)": 87.6,
+      "Category": "Grain (not bread)",
+      "Check after prepped for delivery": 0,
+      "Date Recovered": "20231103",
+      "Item": "mac and cheese",
+      "Location": "Global Hub",
+      "Weight (in lbs)": 12
+    },
+    {
+      "Arrival Temperature (in F)": 88,
+      "Category": "Meat/Main",
+      "Check after prepped for delivery": 0,
+      "Date Recovered": "20231103",
+      "Item": "shrimp stew",
+      "Location": "Global Hub",
+      "Weight (in lbs)": 11
+    },
+    {
+      "Arrival Temperature (in F)": 83.3,
+      "Category": "Grain (not bread)",
+      "Check after prepped for delivery": 0,
+      "Date Recovered": "20231103",
+      "Item": "mac and cheese",
+      "Location": "Global Hub",
+      "Weight (in lbs)": 11
+    },
+    {
+      "Arrival Temperature (in F)": 97.5,
+      "Category": "Grain (not bread)",
+      "Check after prepped for delivery": 0,
+      "Date Recovered": "20231103",
+      "Item": "white rice",
+      "Location": "Global Hub",
+      "Weight (in lbs)": 10
+    },
+    {
+      "Arrival Temperature (in F)": 81.5,
+      "Category": "Grain (not bread)",
+      "Check after prepped for delivery": 0,
+      "Date Recovered": "20231103",
+      "Item": "mac and cheese",
+      "Location": "Global Hub",
+      "Weight (in lbs)": 13.5
+    },
+    {
+      "Arrival Temperature (in F)": 90.9,
+      "Category": "Meat/Main",
+      "Check after prepped for delivery": 0,
+      "Date Recovered": "20231103",
+      "Day": "Friday",
+      "Item": "shrimp stew",
+      "Location": "Global Hub",
+      "Weight (in lbs)": 10
+    },
+    {
+      "Arrival Temperature (in F)": 72,
+      "Category": "Grain (not bread)",
+      "Check after prepped for delivery": 0,
+      "Date Recovered": "20231103",
+      "Day": "Friday",
+      "Item": "rice and beans",
+      "Location": "Allen Center",
+      "Weight (in lbs)": 10
+    },
+    {
+      "Arrival Temperature (in F)": 64.2,
+      "Category": "Veggie",
+      "Check after prepped for delivery": 0,
+      "Date Recovered": "20231103",
+      "Day": "Friday",
+      "Item": "mix veggie salad",
+      "Location": "Allen Center",
+      "Weight (in lbs)": 5
+    },
+    {
+      "Arrival Temperature (in F)": 62.3,
+      "Category": "Veggie",
+      "Check after prepped for delivery": 0,
+      "Date Recovered": "20231103",
+      "Day": "Friday",
+      "Item": "coleslaw salad",
+      "Location": "Allen Center",
+      "Weight (in lbs)": 4
+    },
+    {
+      "Arrival Temperature (in F)": 72.2,
+      "Category": "Veggie",
+      "Check after prepped for delivery": 0,
+      "Date Recovered": "20231103",
+      "Day": "Friday",
+      "Item": "garbanzo stew",
+      "Location": "Allen Center",
+      "Weight (in lbs)": 16
+    },
+    {
+      "Arrival Temperature (in F)": 93,
+      "Category": "Meat/Main",
+      "Check after prepped for delivery": 0,
+      "Date Recovered": "20231103",
+      "Day": "Friday",
+      "Item": "chicken",
+      "Location": "Allen Center",
+      "Weight (in lbs)": 13
+    },
+    {
+      "Arrival Temperature (in F)": 47,
+      "Category": "Meat/Main",
+      "Check after prepped for delivery": 0,
+      "Date Recovered": "20231103",
+      "Day": "Friday",
+      "Item": "beef",
+      "Location": "Elder",
+      "Weight (in lbs)": 15
+    },
+    {
+      "Arrival Temperature (in F)": 46.9,
+      "Category": "Grain (not bread)",
+      "Check after prepped for delivery": 0,
+      "Date Recovered": "20231103",
+      "Day": "Friday",
+      "Item": "mac and cheese",
+      "Location": "Allison",
+      "Weight (in lbs)": 17
+    },
+    {
+      "Arrival Temperature (in F)": 43.7,
+      "Category": "Meat/Main",
+      "Check after prepped for delivery": 0,
+      "Date Recovered": "20231107",
+      "Day": "Tuesday",
+      "Item": "french toast",
+      "Location": "Elder",
+      "Weight (in lbs)": 3.5
+    },
+    {
+      "Arrival Temperature (in F)": 37.4,
+      "Category": "Meat/Main",
+      "Check after prepped for delivery": 0,
+      "Date Recovered": "20231107",
+      "Day": "Tuesday",
+      "Item": "eggs",
+      "Location": "Elder",
+      "Weight (in lbs)": 7.5
+    },
+    {
+      "Arrival Temperature (in F)": 46.9,
+      "Category": "Meat/Main",
+      "Check after prepped for delivery": 0,
+      "Date Recovered": "20231031",
+      "Day": "Tuesday",
+      "Item": "eggs",
+      "Location": "Elder",
+      "Weight (in lbs)": 5.5
+    },
+    {
+      "Arrival Temperature (in F)": 46.6,
+      "Category": "Meat/Main",
+      "Check after prepped for delivery": 0,
+      "Date Recovered": "20231031",
+      "Day": "Tuesday",
+      "Item": "pancake",
+      "Location": "Elder",
+      "Weight (in lbs)": 3
+    },
+    {
+      "Arrival Temperature (in F)": 45.5,
+      "Category": "Meat/Main",
+      "Check after prepped for delivery": 0,
+      "Date Recovered": "20231031",
+      "Day": "Tuesday",
+      "Item": "tofu",
+      "Location": "Elder",
+      "Weight (in lbs)": 19
+    },
+    {
+      "Category": "Bread",
+      "Check after prepped for delivery": 0,
+      "Date Recovered": "20231027",
+      "Day": "Friday",
+      "If prepackaged, Quantity": 23,
+      "Item": "sub rolls",
+      "Location": "Norris - Retail"
+    },
+    {
+      "Category": "Bread",
+      "Check after prepped for delivery": 0,
+      "Date Recovered": "20231027",
+      "Day": "Friday",
+      "If prepackaged, Quantity": 3,
+      "Item": "rye bread loaves",
+      "Location": "Norris - Retail"
+    },
+    {
+      "Category": "Bread",
+      "Check after prepped for delivery": 0,
+      "Date Recovered": "20231027",
+      "Day": "Friday",
+      "If prepackaged, Quantity": 10,
+      "Item": "ciabatta rolls/square rolls",
+      "Location": "Norris - Retail"
+    },
+    {
+      "Category": "Bread",
+      "Check after prepped for delivery": 0,
+      "Date Recovered": "20231027",
+      "Day": "Friday",
+      "If prepackaged, Quantity": 77,
+      "Item": "rolls",
+      "Location": "Norris - Retail"
+    },
+    {
+      "Category": "Bread",
+      "Check after prepped for delivery": 0,
+      "Date Recovered": "20231027",
+      "Day": "Friday",
+      "If prepackaged, Quantity": 1,
+      "Item": "wheat bread loaf",
+      "Location": "Norris - Retail"
+    },
+    {
+      "Category": "Bread",
+      "Check after prepped for delivery": 0,
+      "Date Recovered": "20231027",
+      "Day": "Friday",
+      "If prepackaged, Quantity": 12,
+      "Item": "french rolls",
+      "Location": "Norris - Retail"
+    },
+    {
+      "Arrival Temperature (in F)": 43.2,
+      "Category": "Grain (not bread)",
+      "Check after prepped for delivery": 1,
+      "Comp": "ECF",
+      "Date Prepped": 1697760000000,
+      "Date Recovered": "20231020",
+      "Day": "Friday",
+      "Item": "rice",
+      "Location": "Plex",
+      "Weight (in lbs)": 8.5
+    },
+    {
+      "Arrival Temperature (in F)": 41.9,
+      "Category": "Meat/Main",
+      "Check after prepped for delivery": 1,
+      "Comp": "ECF",
+      "Date Prepped": 1697760000000,
+      "Date Recovered": "20231020",
+      "Day": "Friday",
+      "Item": "steak and green peppers",
+      "Location": "Plex",
+      "Weight (in lbs)": 9.5
+    },
+    {
+      "Arrival Temperature (in F)": 46.8,
+      "Category": "Meat/Main",
+      "Check after prepped for delivery": 1,
+      "Comp": "ECF",
+      "Date Prepped": 1697760000000,
+      "Date Recovered": "20231020",
+      "Day": "Friday",
+      "Item": "chicken stir fry",
+      "Location": "Plex",
+      "Weight (in lbs)": 7.5
+    },
+    {
+      "Arrival Temperature (in F)": 60,
+      "Category": "Grain (not bread)",
+      "Check after prepped for delivery": 1,
+      "Date Recovered": "20231017",
+      "Day": "Tuesday",
+      "Item": "Faro salad",
+      "Location": "Allen Center",
+      "Weight (in lbs)": 6
+    },
+    {
+      "Arrival Temperature (in F)": 57.6,
+      "Category": "Fruit",
+      "Check after prepped for delivery": 1,
+      "Date Recovered": "20231017",
+      "Day": "Tuesday",
+      "Item": "Pineapple",
+      "Location": "Allen Center",
+      "Weight (in lbs)": 3.5
+    },
+    {
+      "Category": "Bread",
+      "Check after prepped for delivery": 0,
+      "Date Recovered": "20231017",
+      "Day": "Tuesday",
+      "If prepackaged, Quantity": 24,
+      "Item": "Mini rectangle rolls ",
+      "Location": "Norris - Catering",
+      "Weight (in lbs)": 1.5
+    },
+    {
+      "Category": "Bread",
+      "Check after prepped for delivery": 0,
+      "Date Recovered": "20231017",
+      "Day": "Tuesday",
+      "If prepackaged, Quantity": 24,
+      "Item": "Large rectangle rolls",
+      "Location": "Norris - Catering",
+      "Weight (in lbs)": 2
+    },
+    {
+      "Category": "Bread",
+      "Check after prepped for delivery": 0,
+      "Date Recovered": "20231017",
+      "Day": "Tuesday",
+      "If prepackaged, Quantity": 6,
+      "Item": "Small square rolls",
+      "Location": "Norris - Catering",
+      "Weight (in lbs)": 1
+    },
+    {
+      "Category": "Bread",
+      "Check after prepped for delivery": 0,
+      "Date Recovered": "20231017",
+      "Day": "Tuesday",
+      "If prepackaged, Quantity": 40,
+      "Item": "Sliced loaves",
+      "Location": "Norris - Catering",
+      "Weight (in lbs)": 4.5
+    },
+    {
+      "Category": "Bread",
+      "Check after prepped for delivery": 0,
+      "Date Recovered": "20231017",
+      "Day": "Tuesday",
+      "If prepackaged, Quantity": 46,
+      "Item": "Thicker sliced loaves ",
+      "Location": "Norris - Catering",
+      "Weight (in lbs)": 6.5
+    },
+    {
+      "Arrival Temperature (in F)": 53,
+      "Category": "Bread",
+      "Check after prepped for delivery": 0,
+      "Date Recovered": "20231010",
+      "Day": "Tuesday",
+      "If prepackaged, Quantity": 12,
+      "Item": "Hoagie bun",
+      "Location": "Norris - Catering",
+      "Weight (in lbs)": 1
+    },
+    {
+      "Arrival Temperature (in F)": 52,
+      "Category": "Bread",
+      "Check after prepped for delivery": 0,
+      "Date Recovered": "20231010",
+      "Day": "Tuesday",
+      "If prepackaged, Quantity": 60,
+      "Item": "Hotdog buns",
+      "Location": "Norris - Catering",
+      "Weight (in lbs)": 8
+    },
+    {
+      "Arrival Temperature (in F)": 58.3,
+      "Category": "Bread",
+      "Check after prepped for delivery": 0,
+      "Date Recovered": "20231010",
+      "Day": "Tuesday",
+      "If prepackaged, Quantity": 12,
+      "Item": "Pretzel buns",
+      "Location": "Norris - Catering",
+      "Weight (in lbs)": 0.1
+    },
+    {
+      "Arrival Temperature (in F)": 62.2,
+      "Category": "Bread",
+      "Check after prepped for delivery": 0,
+      "Date Recovered": "20231010",
+      "Day": "Tuesday",
+      "If prepackaged, Quantity": 116,
+      "Item": "mini rolls",
+      "Location": "Norris - Catering",
+      "Weight (in lbs)": 8
+    },
+    {
+      "Arrival Temperature (in F)": 57.4,
+      "Category": "Bread",
+      "Check after prepped for delivery": 0,
+      "Date Recovered": "20231010",
+      "Day": "Tuesday",
+      "If prepackaged, Quantity": 102,
+      "Item": "Hamburger buns",
+      "Location": "Norris - Catering",
+      "Weight (in lbs)": 10
+    },
+    {
+      "Arrival Temperature (in F)": 61.7,
+      "Category": "Bread",
+      "Check after prepped for delivery": 0,
+      "Date Recovered": "20231010",
+      "Day": "Tuesday",
+      "If prepackaged, Quantity": 158,
+      "Item": "mini hamburger buns",
+      "Location": "Norris - Catering",
+      "Weight (in lbs)": 18.5
+    },
+    {
+      "Arrival Temperature (in F)": 69.8,
+      "Category": "Bread",
+      "Check after prepped for delivery": 0,
+      "Date Recovered": "20231010",
+      "Day": "Tuesday",
+      "If prepackaged, Quantity": 39,
+      "Item": "bread loaves",
+      "Location": "Norris - Catering",
+      "Weight (in lbs)": 4
+    },
+    {
+      "Category": "Bread",
+      "Check after prepped for delivery": 1,
+      "Date Recovered": "20231003",
+      "Day": "Tuesday",
+      "If prepackaged, Quantity": 120,
+      "Item": "Buns",
+      "Location": "Norris - Catering"
+    },
+    {
+      "Category": "Bread",
+      "Check after prepped for delivery": 1,
+      "Date Recovered": "20231003",
+      "Day": "Tuesday",
+      "If prepackaged, Quantity": 29,
+      "Item": "Ciabatta Rolls",
+      "Location": "Norris - Catering"
+    },
+    {
+      "Category": "Bread",
+      "Check after prepped for delivery": 1,
+      "Date Recovered": "20231003",
+      "Day": "Tuesday",
+      "If prepackaged, Quantity": 5,
+      "Item": "Hoagie bun",
+      "Location": "Norris - Catering"
+    },
+    {
+      "Category": "Meat/Main",
+      "Check after prepped for delivery": 1,
+      "Date Recovered": "20231010",
+      "Day": "Tuesday",
+      "Item": "Taco Salsa",
+      "Location": "Allen Center",
+      "Weight (in lbs)": 12
+    },
+    {
+      "Arrival Temperature (in F)": 68.4,
+      "Category": "Dessert",
+      "Check after prepped for delivery": 1,
+      "Date Recovered": "20231010",
+      "Day": "Tuesday",
+      "Item": "Pumpkin Pudding",
+      "Location": "Allen Center",
+      "Weight (in lbs)": 3
+    },
+    {
+      "Arrival Temperature (in F)": 66.4,
+      "Category": "Dessert",
+      "Check after prepped for delivery": 1,
+      "Date Recovered": "20231010",
+      "Day": "Tuesday",
+      "Item": "Stuffed Apples",
+      "Location": "Allen Center",
+      "Weight (in lbs)": 5
+    },
+    {
+      "Arrival Temperature (in F)": 64.4,
+      "Category": "Dessert",
+      "Check after prepped for delivery": 1,
+      "Date Recovered": "20231010",
+      "Day": "Tuesday",
+      "Item": "Strawberry cake",
+      "Location": "Allen Center",
+      "Weight (in lbs)": 0.25
+    },
+    {
+      "Arrival Temperature (in F)": 55.1,
+      "Category": "Dessert",
+      "Check after prepped for delivery": 1,
+      "Date Recovered": "20231010",
+      "Day": "Tuesday",
+      "If prepackaged, Quantity": 30,
+      "Item": "Cupcake",
+      "Location": "Norris - Catering",
+      "Weight (in lbs)": 5
+    },
+    {
+      "Arrival Temperature (in F)": 70,
+      "Category": "Meat/Main",
+      "Check after prepped for delivery": 1,
+      "Date Recovered": "20231013",
+      "Day": "Friday",
+      "Item": "Hamburger Patties",
+      "Location": "Allen Center",
+      "Weight (in lbs)": 6.5
+    },
+    {
+      "Arrival Temperature (in F)": 59.5,
+      "Category": "Meat/Main",
+      "Check after prepped for delivery": 1,
+      "Date Recovered": "20231013",
+      "Day": "Friday",
+      "Item": "Beef salad",
+      "Location": "Allen Center",
+      "Weight (in lbs)": 6.5
+    },
+    {
+      "Arrival Temperature (in F)": 63.5,
+      "Category": "Veggie",
+      "Check after prepped for delivery": 1,
+      "Date Recovered": "20231013",
+      "Day": "Friday",
+      "Item": "Greek golden salad",
+      "Location": "Allen Center",
+      "Weight (in lbs)": 5
+    },
+    {
+      "Arrival Temperature (in F)": 77.4,
+      "Category": "Meat/Main",
+      "Check after prepped for delivery": 1,
+      "Date Recovered": "20231013",
+      "Day": "Friday",
+      "Item": "Rice & tofu ",
+      "Location": "Allen Center",
+      "Weight (in lbs)": 11
+    },
+    {
+      "Arrival Temperature (in F)": 55.3,
+      "Category": "Grain (not bread)",
+      "Check after prepped for delivery": 1,
+      "Date Recovered": "20231013",
+      "Day": "Friday",
+      "Item": "Barley salad",
+      "Location": "Allen Center",
+      "Weight (in lbs)": 14
+    },
+    {
+      "Arrival Temperature (in F)": 78.1,
+      "Category": "Meat/Main",
+      "Check after prepped for delivery": 1,
+      "Date Recovered": "20231013",
+      "Day": "Friday",
+      "Item": "Pork",
+      "Location": "Allen Center",
+      "Weight (in lbs)": 9.5
+    },
+    {
+      "Arrival Temperature (in F)": 90,
+      "Category": "Grain (not bread)",
+      "Check after prepped for delivery": 1,
+      "Date Recovered": "20231006",
+      "Day": "Friday",
+      "Item": "Cauliflower Rice",
+      "Location": "Allen Center",
+      "Weight (in lbs)": 4
+    },
+    {
+      "Arrival Temperature (in F)": 95.4,
+      "Category": "Meat/Main",
+      "Check after prepped for delivery": 1,
+      "Date Recovered": "20231006",
+      "Day": "Friday",
+      "Item": "Potato & Garbanzo Stew",
+      "Location": "Allen Center",
+      "Weight (in lbs)": 8
+    },
+    {
+      "Arrival Temperature (in F)": 109,
+      "Category": "Meat/Main",
+      "Check after prepped for delivery": 1,
+      "Date Recovered": "20231006",
+      "Day": "Friday",
+      "Item": "Potato & Butternut Squash",
+      "Location": "Allen Center",
+      "Weight (in lbs)": 10.5
+    },
+    {
+      "Arrival Temperature (in F)": 91.6,
+      "Category": "Grain (not bread)",
+      "Check after prepped for delivery": 1,
+      "Date Recovered": "20231006",
+      "Day": "Friday",
+      "Item": "Quinoa Pilaf",
+      "Location": "Allen Center",
+      "Weight (in lbs)": 12
+    },
+    {
+      "Arrival Temperature (in F)": 47.5,
+      "Category": "Veggie",
+      "Date Recovered": "20231031",
+      "Day": "Tuesday",
+      "Item": "Tofu",
+      "Location": "Elder",
+      "Weight (in lbs)": 20
+    },
+    {
+      "Arrival Temperature (in F)": 58.5,
+      "Category": "Veggie",
+      "Date Recovered": "20231031",
+      "Day": "Tuesday",
+      "Item": "Pancakes and scrambled eggs",
+      "Location": "Elder",
+      "Weight (in lbs)": 10
+    },
+    {
+      "Arrival Temperature (in F)": 40.1,
+      "Category": "Veggie",
+      "Date Recovered": "20231112",
+      "Day": "Friday",
+      "Item": "Squash, peas, carrots",
+      "Location": "Elder",
+      "Weight (in lbs)": 10
+    },
+    {
+      "Arrival Temperature (in F)": 38.3,
+      "Category": "Veggie",
+      "Date Recovered": "20231112",
+      "Day": "Friday",
+      "Item": "Bean stew",
+      "Location": "Elder",
+      "Weight (in lbs)": 25
+    }
+  ],
+  "users": {
+    "V9kZiLUf8aUovzx2HvoWtEi3n3s1": {
+      "displayName": "Charles Zhou",
+      "email": "charleszhou2023@u.northwestern.edu",
+      "emailVerified": true,
+      "photoURL": "https://lh3.googleusercontent.com/a/ACg8ocJWPvzo5KepjE845uL3acWKSYdQUk-mfcRbwu4CAzk3=s96-c",
+      "providerId": "firebase"
+    },
+    "mCMlRFXw6UYzOE81rrArFInylP13": {
+      "displayName": "Yu Xia",
+      "email": "yuxia2025@u.northwestern.edu",
+      "emailVerified": true,
+      "photoURL": "https://lh3.googleusercontent.com/a/ACg8ocI79Kt8CAusyphIexfpHRZPkGPceqLo4eOmYso9SOMh=s96-c",
+      "providerId": "firebase"
+    }
+  }
+}
