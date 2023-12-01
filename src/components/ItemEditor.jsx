@@ -17,7 +17,7 @@ import { v4 as uuid } from "uuid";
 import useItemsStore from "../utilities/stores";
 
 const DEFAULT_ITEM = {
-  "Arrival Temperature (in F)": null,
+  "Arrival Temperature (in F)": "",
   Category: "",
   "Check after prepped for delivery": "",
   "Date Prepped": "",
@@ -123,8 +123,8 @@ const ItemEditor = () => {
     // Get the day of the week from the Date Prepped field
     itemToAdd.Day = itemToAdd["Date Prepped"]
       ? new Date(itemToAdd["Date Prepped"]).toLocaleDateString("en-US", {
-          weekday: "long",
-        })
+        weekday: "long",
+      })
       : "";
     itemToAdd.Location = itemToAdd.Location || "Unknown Location";
     if (itemToAdd.WeightOrQuantity === "weight") {
@@ -140,7 +140,8 @@ const ItemEditor = () => {
       itemToAdd['Date Prepped'] = dateString.split("T")[0].replace(/-/g, "");
     }
     if (itemToAdd['Date Recovered']) {
-      itemToAdd['Date Recovered'] = new Date(itemToAdd['Date Recovered']).toISOString();
+      const dateString = new Date(itemToAdd['Date Recovered']).toISOString();
+      itemToAdd['Date Recovered'] = dateString.split("T")[0].replace(/-/g, "");
     }
     itemToAdd.Category = itemToAdd.Category
       ? itemToAdd.Category.split(",").map((cat) => cat.trim())
@@ -159,184 +160,184 @@ const ItemEditor = () => {
   };
 
   return (
-      <Card className="p-4 flex flex-col gap-4 bg-white shadow-lg rounded">
-        <Typography variant="h6" className="text-center text-2xl font-bold">
-          Create a New Item
-        </Typography>
+    <Card className="p-4 flex flex-col gap-4 bg-white shadow-lg rounded">
+      <Typography variant="h6" className="text-center text-2xl font-bold">
+        Create a New Item
+      </Typography>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <TextField
-            label="Item Name"
-            helperText="Required"
-            variant="outlined"
-            value={newItem.Item}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <TextField
+          label="Item Name"
+          helperText="Required"
+          variant="outlined"
+          value={newItem.Item}
+          onChange={(event) =>
+            setNewItem({ ...newItem, Item: event.target.value })
+          }
+          fullWidth
+          required
+        />
+        <TextField
+          label="Category"
+          variant="outlined"
+          helperText="Separate categories with commas"
+          value={newItem.Category}
+          onChange={(event) =>
+            setNewItem({ ...newItem, Category: event.target.value })
+          }
+          fullWidth
+          required
+        />
+        <DateTimePicker
+          label="Date Prepped"
+          value={
+            newItem["Date Prepped"] ? new Date(newItem["Date Prepped"]) : null
+          }
+          onChange={(date) =>
+            setNewItem({
+              ...newItem,
+              "Date Prepped": date ? formatDate(date) : "",
+            })
+          }
+          disableFuture
+          textField={(params) => <TextField {...params} fullWidth />}
+          format="MM/dd/yyyy"
+          view="day"
+          views={["day"]}
+        />
+        <DateTimePicker
+          label="Date Recovered"
+          value={
+            newItem["Date Recovered"]
+              ? new Date(newItem["Date Recovered"])
+              : null
+          }
+          onChange={(date) =>
+            setNewItem({
+              ...newItem,
+              "Date Recovered": date ? formatDate(date) : "",
+            })
+          }
+          disableFuture
+          textField={(params) => <TextField {...params} fullWidth />}
+          format="MM/dd/yyyy"
+          view="day"
+          views={["day"]}
+        />
+        <FormControl component="fieldset">
+          <RadioGroup
+            row
+            aria-label="weight-or-quantity"
+            name="weight-or-quantity"
+            value={newItem.WeightOrQuantity}
             onChange={(event) =>
-              setNewItem({ ...newItem, Item: event.target.value })
+              setNewItem({ ...newItem, WeightOrQuantity: event.target.value })
             }
-            fullWidth
-            required
-          />
-          <TextField
-            label="Category"
-            variant="outlined"
-            helperText="Separate categories with commas"
-            value={newItem.Category}
-            onChange={(event) =>
-              setNewItem({ ...newItem, Category: event.target.value })
-            }
-            fullWidth
-            required
-          />
-          <DateTimePicker
-            label="Date Prepped"
-            value={
-              newItem["Date Prepped"] ? new Date(newItem["Date Prepped"]) : null
-            }
-            onChange={(date) =>
-              setNewItem({
-                ...newItem,
-                "Date Prepped": date ? formatDate(date) : "",
-              })
-            }
-            disableFuture
-            textField={(params) => <TextField {...params} fullWidth />}
-            format="MM/dd/yyyy"
-            view="day"
-            views={["day", "month", "year"]}
-          />
-          <DateTimePicker
-            label="Date Recovered"
-            value={
-              newItem["Date Recovered"]
-                ? new Date(newItem["Date Recovered"])
-                : null
-            }
-            onChange={(date) =>
-              setNewItem({
-                ...newItem,
-                "Date Recovered": date ? formatDate(date) : "",
-              })
-            }
-            disableFuture
-            textField={(params) => <TextField {...params} fullWidth />}
-            format="MM/dd/yyyy"
-            view="day"
-            views={["day", "month", "year"]}
-          />
-          <FormControl component="fieldset">
-            <RadioGroup
-              row
-              aria-label="weight-or-quantity"
-              name="weight-or-quantity"
-              value={newItem.WeightOrQuantity}
-              onChange={(event) =>
-                setNewItem({ ...newItem, WeightOrQuantity: event.target.value })
-              }
-            >
-              <FormControlLabel
-                value="weight"
-                control={<Radio />}
-                label="Weight (in lbs)"
-              />
-              <FormControlLabel
-                value="quantity"
-                control={<Radio />}
-                label="Quantity"
-              />
-            </RadioGroup>
-          </FormControl>
-          {newItem.WeightOrQuantity === "weight" ? (
-            <TextField
+          >
+            <FormControlLabel
+              value="weight"
+              control={<Radio />}
               label="Weight (in lbs)"
-              variant="outlined"
-              value={newItem["Weight (in lbs)"]}
-              onChange={(event) =>
-                setNewItem({
-                  ...newItem,
-                  "Weight (in lbs)": event.target.value
-                    ? Number(event.target.value)
-                    : null,
-                })
-              }
-              fullWidth
             />
-          ) : (
-            <TextField
+            <FormControlLabel
+              value="quantity"
+              control={<Radio />}
               label="Quantity"
-              variant="outlined"
-              value={newItem["If prepackaged, Quantity"]}
-              onChange={(event) =>
-                setNewItem({
-                  ...newItem,
-                  "If prepackaged, Quantity": event.target.value,
-                })
-              }
-              fullWidth
             />
-          )}
+          </RadioGroup>
+        </FormControl>
+        {newItem.WeightOrQuantity === "weight" ? (
           <TextField
-            label="Location"
+            label="Weight (in lbs)"
             variant="outlined"
-            value={newItem.Location}
-            onChange={(event) =>
-              setNewItem({ ...newItem, Location: event.target.value })
-            }
-            fullWidth
-          />
-          <TextField
-            label="Arrival Temperature (in F)"
-            variant="outlined"
-            type="number"
-            value={newItem["Arrival Temperature (in F)"]}
+            value={newItem["Weight (in lbs)"]}
             onChange={(event) =>
               setNewItem({
                 ...newItem,
-                "Arrival Temperature (in F)": event.target.value
+                "Weight (in lbs)": event.target.value
                   ? Number(event.target.value)
                   : null,
               })
             }
             fullWidth
           />
+        ) : (
           <TextField
-            label="Image URL"
+            label="Quantity"
             variant="outlined"
-            value={newItem.ImageURL}
+            value={newItem["If prepackaged, Quantity"]}
             onChange={(event) =>
-              setNewItem({ ...newItem, ImageURL: event.target.value })
+              setNewItem({
+                ...newItem,
+                "If prepackaged, Quantity": event.target.value,
+              })
             }
             fullWidth
           />
-        </div>
+        )}
+        <TextField
+          label="Location"
+          variant="outlined"
+          value={newItem.Location}
+          onChange={(event) =>
+            setNewItem({ ...newItem, Location: event.target.value })
+          }
+          fullWidth
+        />
+        <TextField
+          label="Arrival Temperature (in F)"
+          variant="outlined"
+          type="number"
+          value={newItem["Arrival Temperature (in F)"]}
+          onChange={(event) =>
+            setNewItem({
+              ...newItem,
+              "Arrival Temperature (in F)": event.target.value
+                ? Number(event.target.value)
+                : null,
+            })
+          }
+          fullWidth
+        />
+        <TextField
+          label="Image URL"
+          variant="outlined"
+          value={newItem.ImageURL}
+          onChange={(event) =>
+            setNewItem({ ...newItem, ImageURL: event.target.value })
+          }
+          fullWidth
+        />
+      </div>
 
-        <Divider />
-        <div className="flex justify-end gap-2 mt-4">
-          <Button
-            variant="outlined"
-            color="error"
-            onClick={() => setNewItem(DEFAULT_ITEM)}
-          >
-            Discard
-          </Button>
-          <Button variant="contained" color="primary" onClick={onSave}>
-            Submit
-          </Button>
-        </div>
-        <Snackbar
-          open={openSuccess}
-          autoHideDuration={6000}
-          onClose={handleClose}
-          anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+      <Divider />
+      <div className="flex justify-end gap-2 mt-4">
+        <Button
+          variant="outlined"
+          color="error"
+          onClick={() => setNewItem(DEFAULT_ITEM)}
         >
-          <Alert
-            onClose={handleClose}
-            severity="success"
-            sx={{ width: "100%" }}
-          >
-            Item successfully saved!
-          </Alert>
-        </Snackbar>
-      </Card>
+          Discard
+        </Button>
+        <Button variant="contained" color="primary" onClick={onSave}>
+          Submit
+        </Button>
+      </div>
+      <Snackbar
+        open={openSuccess}
+        autoHideDuration={6000}
+        onClose={handleClose}
+        anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+      >
+        <Alert
+          onClose={handleClose}
+          severity="success"
+          sx={{ width: "100%" }}
+        >
+          Item successfully saved!
+        </Alert>
+      </Snackbar>
+    </Card>
   );
 };
 
