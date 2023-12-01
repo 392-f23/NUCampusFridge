@@ -17,7 +17,7 @@ import { v4 as uuid } from "uuid";
 import useItemsStore from "../utilities/stores";
 
 const DEFAULT_ITEM = {
-  "Arrival Temperature (in F)": "",
+  "Arrival Temperature (in F)": null,
   Category: "",
   "Check after prepped for delivery": "",
   "Date Prepped": "",
@@ -32,7 +32,7 @@ const DEFAULT_ITEM = {
 };
 
 const ItemEditor = () => {
-  const addItem = useItemsStore(state => state.addItem);
+  const addItem = useItemsStore((state) => state.addItem);
   const [newItem, setNewItem] = useState(DEFAULT_ITEM);
   const [openSuccess, setOpenSuccess] = useState(false);
 
@@ -61,19 +61,21 @@ const ItemEditor = () => {
       alert("Please fill out the Date Recovered field.");
       return;
     }
-    // Check if date prepped or date recovered is in the future
+    // Check if day prepped or day recovered is in the future
     if (newItem["Date Prepped"] && new Date(newItem["Date Prepped"]) > new Date()) {
       alert("Date prepped cannot be in the future.");
       return;
     }
-    // Check if date recovered is in the future
+    // Check if day recovered is in the future
     if (newItem["Date Recovered"] && new Date(newItem["Date Recovered"]) > new Date()) {
       alert("Date recovered cannot be in the future.");
       return;
     }
     // Check if date recovered is before date prepped
     if (newItem["Date Prepped"] && newItem["Date Recovered"]) {
-      if (new Date(newItem["Date Prepped"]) > new Date(newItem["Date Recovered"])) {
+      if (
+        new Date(newItem["Date Prepped"]) > new Date(newItem["Date Recovered"])
+      ) {
         alert("Date recovered cannot be before date prepped.");
         return;
       }
@@ -119,8 +121,12 @@ const ItemEditor = () => {
     itemToAdd['Arrival Temperature (in F)'] = itemToAdd['Arrival Temperature (in F)'] || 'N/A';
     itemToAdd['Check after prepped for delivery'] = itemToAdd['Check after prepped for delivery'] || false;
     // Get the day of the week from the Date Prepped field
-    itemToAdd.Day = itemToAdd['Date Prepped'] ? new Date(itemToAdd['Date Prepped']).toLocaleDateString('en-US', { weekday: 'long' }) : '';
-    itemToAdd.Location = itemToAdd.Location || 'Unknown Location';
+    itemToAdd.Day = itemToAdd["Date Prepped"]
+      ? new Date(itemToAdd["Date Prepped"]).toLocaleDateString("en-US", {
+          weekday: "long",
+        })
+      : "";
+    itemToAdd.Location = itemToAdd.Location || "Unknown Location";
     if (itemToAdd.WeightOrQuantity === "weight") {
       itemToAdd['If prepackaged, Quantity'] = null;
     } else {
@@ -134,28 +140,30 @@ const ItemEditor = () => {
       itemToAdd['Date Prepped'] = dateString.split("T")[0].replace(/-/g, "");
     }
     if (itemToAdd['Date Recovered']) {
-      const dateString = new Date(itemToAdd['Date Recovered']).toISOString();
-      itemToAdd['Date Recovered'] = dateString.split("T")[0].replace(/-/g, "");
+      itemToAdd['Date Recovered'] = new Date(itemToAdd['Date Recovered']).toISOString();
     }
-    itemToAdd.Category = itemToAdd.Category ? itemToAdd.Category.split(",").map(cat => cat.trim()) : [];
-    itemToAdd.id = "ITEM-" + uuid();
+    itemToAdd.Category = itemToAdd.Category
+      ? itemToAdd.Category.split(",").map((cat) => cat.trim())
+      : [];
+    itemToAdd.id = uuid();
     addItem(itemToAdd);
     setNewItem(DEFAULT_ITEM);
     setOpenSuccess(true);
   };
 
-
-
   const formatDate = (date) => {
     if (date) {
-      return new Date(date).toISOString().split("T")[0]; // Format to YYYY-MM-DD
+      return new Date(date).toISOString().split("T")[0];
     }
     return "";
   };
 
   return (
       <Card className="p-4 flex flex-col gap-4 bg-white shadow-lg rounded">
-        <Typography variant="h6" className="text-center text-lg font-semibold">Create a New Item</Typography>
+        <Typography variant="h6" className="text-center text-2xl font-bold">
+          Create a New Item
+        </Typography>
+
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <TextField
             label="Item Name"
@@ -181,9 +189,14 @@ const ItemEditor = () => {
           />
           <DateTimePicker
             label="Date Prepped"
-            value={newItem["Date Prepped"] ? new Date(newItem["Date Prepped"]) : null}
+            value={
+              newItem["Date Prepped"] ? new Date(newItem["Date Prepped"]) : null
+            }
             onChange={(date) =>
-              setNewItem({ ...newItem, "Date Prepped": date ? formatDate(date) : "" })
+              setNewItem({
+                ...newItem,
+                "Date Prepped": date ? formatDate(date) : "",
+              })
             }
             disableFuture
             textField={(params) => <TextField {...params} fullWidth />}
@@ -193,9 +206,16 @@ const ItemEditor = () => {
           />
           <DateTimePicker
             label="Date Recovered"
-            value={newItem["Date Recovered"] ? new Date(newItem["Date Recovered"]) : null}
+            value={
+              newItem["Date Recovered"]
+                ? new Date(newItem["Date Recovered"])
+                : null
+            }
             onChange={(date) =>
-              setNewItem({ ...newItem, "Date Recovered": date ? formatDate(date) : "" })
+              setNewItem({
+                ...newItem,
+                "Date Recovered": date ? formatDate(date) : "",
+              })
             }
             disableFuture
             textField={(params) => <TextField {...params} fullWidth />}
@@ -213,8 +233,16 @@ const ItemEditor = () => {
                 setNewItem({ ...newItem, WeightOrQuantity: event.target.value })
               }
             >
-              <FormControlLabel value="weight" control={<Radio />} label="Weight (in lbs)" />
-              <FormControlLabel value="quantity" control={<Radio />} label="Quantity" />
+              <FormControlLabel
+                value="weight"
+                control={<Radio />}
+                label="Weight (in lbs)"
+              />
+              <FormControlLabel
+                value="quantity"
+                control={<Radio />}
+                label="Quantity"
+              />
             </RadioGroup>
           </FormControl>
           {newItem.WeightOrQuantity === "weight" ? (
@@ -223,7 +251,12 @@ const ItemEditor = () => {
               variant="outlined"
               value={newItem["Weight (in lbs)"]}
               onChange={(event) =>
-                setNewItem({ ...newItem, "Weight (in lbs)": event.target.value })
+                setNewItem({
+                  ...newItem,
+                  "Weight (in lbs)": event.target.value
+                    ? Number(event.target.value)
+                    : null,
+                })
               }
               fullWidth
             />
@@ -233,7 +266,10 @@ const ItemEditor = () => {
               variant="outlined"
               value={newItem["If prepackaged, Quantity"]}
               onChange={(event) =>
-                setNewItem({ ...newItem, "If prepackaged, Quantity": event.target.value })
+                setNewItem({
+                  ...newItem,
+                  "If prepackaged, Quantity": event.target.value,
+                })
               }
               fullWidth
             />
@@ -250,8 +286,16 @@ const ItemEditor = () => {
           <TextField
             label="Arrival Temperature (in F)"
             variant="outlined"
+            type="number"
             value={newItem["Arrival Temperature (in F)"]}
-            onChange={(e) => setNewItem({ ...newItem, "Arrival Temperature (in F)": e.target.value })}
+            onChange={(event) =>
+              setNewItem({
+                ...newItem,
+                "Arrival Temperature (in F)": event.target.value
+                  ? Number(event.target.value)
+                  : null,
+              })
+            }
             fullWidth
           />
           <TextField
@@ -267,7 +311,11 @@ const ItemEditor = () => {
 
         <Divider />
         <div className="flex justify-end gap-2 mt-4">
-          <Button variant="outlined" color="error" onClick={() => setNewItem(DEFAULT_ITEM)}>
+          <Button
+            variant="outlined"
+            color="error"
+            onClick={() => setNewItem(DEFAULT_ITEM)}
+          >
             Discard
           </Button>
           <Button variant="contained" color="primary" onClick={onSave}>
@@ -280,7 +328,11 @@ const ItemEditor = () => {
           onClose={handleClose}
           anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
         >
-          <Alert onClose={handleClose} severity="success" sx={{ width: "100%" }}>
+          <Alert
+            onClose={handleClose}
+            severity="success"
+            sx={{ width: "100%" }}
+          >
             Item successfully saved!
           </Alert>
         </Snackbar>
@@ -289,5 +341,3 @@ const ItemEditor = () => {
 };
 
 export default ItemEditor;
-
-
