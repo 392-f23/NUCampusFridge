@@ -53,14 +53,8 @@ const ItemEditor = () => {
     itemToAdd.Item = itemToAdd.Item || 'Unnamed Item';
     itemToAdd.Location = itemToAdd.Location || 'Unknown Location';
     itemToAdd['Weight (in lbs)'] = itemToAdd['Weight (in lbs)'] || '0';
-
-    // Format dates
-    if (itemToAdd['Date Prepped']) {
-        itemToAdd['Date Prepped'] = new Date(itemToAdd['Date Prepped']).toISOString();
-    }
-    if (itemToAdd['Date Recovered']) {
-        itemToAdd['Date Recovered'] = new Date(itemToAdd['Date Recovered']).toISOString();
-    }
+    itemToAdd['Date Prepped'] = itemToAdd['Date Prepped'] || 'Unknown time';
+    itemToAdd['Date Recovered'] = itemToAdd['Date Recovered'] || 'Unknown time';
     itemToAdd.Category = itemToAdd.Category ? itemToAdd.Category.split(",").map(cat => cat.trim()) : [];
     itemToAdd.id = "ITEM-" + uuid();
     addItem(itemToAdd);
@@ -72,14 +66,15 @@ const ItemEditor = () => {
 
   const formatDate = (date) => {
     if (date) {
-      return new Date(date).toISOString().split("T")[0]; // Format to YYYY-MM-DD
+      return new Date(date).toISOString().split("T")[0].replace(/-/g, '');
     }
     return "";
   };
+  
 
   return (
     <LocalizationProvider dateAdapter={AdapterDateFns}>
-    <Card className="p-4 flex flex-col gap-4 bg-white shadow-lg rounded">
+    <Card className="p-4 flex flex-col gap-4 bg-white shadow-lg rounded" style={{ paddingTop: "70px" }}>
         <Typography variant="h6" className="text-center text-lg font-semibold">Create a New Item</Typography>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">

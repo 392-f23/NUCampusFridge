@@ -28,7 +28,7 @@ const ItemsDisplay = ({ items, searchQuery }) => {
 
   if (filteredItems.length === 0) {
     return (
-      <div className="deals-container">
+      <div className="deals-container" >
         <div className="flex justify-center w-full p-6">
           <h1 className="text-xl text-center">No items found.</h1>
         </div>
@@ -37,8 +37,8 @@ const ItemsDisplay = ({ items, searchQuery }) => {
   }
 
   return (
-    <div className="deals-container" style={{ paddingTop: "75px" }}>
-      <div className="events-grid flex justify-center w-full mt-6 px-6">
+    <div className="deals-container" >
+      <div className="events-grid flex justify-center w-full mt-6 px-6" >
         <Masonry columns={{ xs: 1, sm: 2, md: 3, lg: 4, xl: 5 }}>
           {currentItems.map((item) => (
             <div
