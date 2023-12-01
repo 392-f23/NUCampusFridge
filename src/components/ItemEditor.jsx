@@ -9,14 +9,17 @@ import {
 } from "@mui/material";
 import { Divider, Button } from "@nextui-org/react";
 import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
+import { LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { v4 as uuid } from "uuid";
+import useItemsStore from "../utilities/stores";
 
 const DEFAULT_ITEM = {
   "Arrival Temperature (in F)": "",
   Category: "",
   "Check after prepped for delivery": "",
   Comp: "",
-  "Date Prepped": null,
+  "Date Prepped": "",
   "Date Recovered": "",
   Day: "",
   Item: "",
@@ -26,6 +29,7 @@ const DEFAULT_ITEM = {
 };
 
 const ItemEditor = () => {
+  const addItem = useItemsStore(state => state.addItem);
   const [newItem, setNewItem] = useState(DEFAULT_ITEM);
   const [openSuccess, setOpenSuccess] = useState(false);
 
@@ -37,13 +41,34 @@ const ItemEditor = () => {
   };
 
   const onSave = () => {
-    // Here you should add your logic to save the new item
-    console.log(newItem); // For example, logging the new item
+    // Copy the current state to a new object
+    let itemToAdd = { ...newItem };
 
-    // Reset the form
+    // Set default values for fields if they are empty
+    itemToAdd.ImageURL = itemToAdd.ImageURL || "https://path.to/your/default/image.jpg";
+    itemToAdd['Arrival Temperature (in F)'] = itemToAdd['Arrival Temperature (in F)'] || 'TBC';
+    itemToAdd['Check after prepped for delivery'] = itemToAdd['Check after prepped for delivery'] || 'TBC';
+    itemToAdd.Comp = itemToAdd.Comp || 'Not Specified';
+    itemToAdd.Day = itemToAdd.Day || 'Not Specified';
+    itemToAdd.Item = itemToAdd.Item || 'Unnamed Item';
+    itemToAdd.Location = itemToAdd.Location || 'Unknown Location';
+    itemToAdd['Weight (in lbs)'] = itemToAdd['Weight (in lbs)'] || '0';
+
+    // Format dates
+    if (itemToAdd['Date Prepped']) {
+        itemToAdd['Date Prepped'] = new Date(itemToAdd['Date Prepped']).toISOString();
+    }
+    if (itemToAdd['Date Recovered']) {
+        itemToAdd['Date Recovered'] = new Date(itemToAdd['Date Recovered']).toISOString();
+    }
+    itemToAdd.Category = itemToAdd.Category ? itemToAdd.Category.split(",").map(cat => cat.trim()) : [];
+    itemToAdd.id = "ITEM-" + uuid();
+    addItem(itemToAdd);
     setNewItem(DEFAULT_ITEM);
     setOpenSuccess(true);
   };
+
+
 
   const formatDate = (date) => {
     if (date) {
@@ -53,20 +78,19 @@ const ItemEditor = () => {
   };
 
   return (
-    <Card className="p-4 flex flex-col gap-4">
-      <Typography variant="h6">Create a New Item</Typography>
+    <LocalizationProvider dateAdapter={AdapterDateFns}>
+    <Card className="p-4 flex flex-col gap-4 bg-white shadow-lg rounded">
+        <Typography variant="h6" className="text-center text-lg font-semibold">Create a New Item</Typography>
 
-      <TextField
-        label="Arrival Temperature (in F)"
-        variant="outlined"
-        value={newItem["Arrival Temperature (in F)"]}
-        onChange={(event) =>
-          setNewItem({
-            ...newItem,
-            "Arrival Temperature (in F)": event.target.value,
-          })
-        }
-      />
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+        <TextField
+            label="Arrival Temperature (in F)"
+            variant="outlined"
+            value={newItem["Arrival Temperature (in F)"]}
+            onChange={(e) => setNewItem({ ...newItem, "Arrival Temperature (in F)": e.target.value })}
+            fullWidth
+          />
       <TextField
         label="Category"
         variant="outlined"
@@ -74,6 +98,7 @@ const ItemEditor = () => {
         onChange={(event) =>
           setNewItem({ ...newItem, Category: event.target.value })
         }
+        fullWidth
       />
       <TextField
         label="Check after prepped for delivery"
@@ -85,6 +110,7 @@ const ItemEditor = () => {
             "Check after prepped for delivery": event.target.value,
           })
         }
+        fullWidth
       />
       <TextField
         label="Comp"
@@ -93,23 +119,25 @@ const ItemEditor = () => {
         onChange={(event) =>
           setNewItem({ ...newItem, Comp: event.target.value })
         }
+        fullWidth
       />
       <DateTimePicker
         label="Date Prepped"
-        value={newItem["Date Prepped"]}
-        onChange={(date) =>
-          setNewItem({ ...newItem, "Date Prepped": formatDate(date) })
+        value={newItem["Date Prepped"] ? new Date(newItem["Date Prepped"]) : null}
+        onChange={(date) => 
+          setNewItem({ ...newItem, "Date Prepped": date ? formatDate(date) : "" })
         }
-        renderInput={(params) => <TextField {...params} />}
+        renderInput={(params) => <TextField {...params} fullWidth />}
       />
-      <TextField
+      <DateTimePicker
         label="Date Recovered"
-        variant="outlined"
-        value={newItem["Date Recovered"]}
-        onChange={(event) =>
-          setNewItem({ ...newItem, "Date Recovered": event.target.value })
+        value={newItem["Date Recovered"] ? new Date(newItem["Date Recovered"]) : null}
+        onChange={(date) => 
+          setNewItem({ ...newItem, "Date Recovered": date ? formatDate(date) : "" })
         }
+        renderInput={(params) => <TextField {...params} fullWidth />}
       />
+      
       <TextField
         label="Day"
         variant="outlined"
@@ -117,6 +145,7 @@ const ItemEditor = () => {
         onChange={(event) =>
           setNewItem({ ...newItem, Day: event.target.value })
         }
+        fullWidth
       />
       <TextField
         label="Item"
@@ -125,6 +154,7 @@ const ItemEditor = () => {
         onChange={(event) =>
           setNewItem({ ...newItem, Item: event.target.value })
         }
+        fullWidth
       />
       <TextField
         label="Location"
@@ -133,6 +163,7 @@ const ItemEditor = () => {
         onChange={(event) =>
           setNewItem({ ...newItem, Location: event.target.value })
         }
+        fullWidth
       />
       <TextField
         label="Weight (in lbs)"
@@ -141,6 +172,7 @@ const ItemEditor = () => {
         onChange={(event) =>
           setNewItem({ ...newItem, "Weight (in lbs)": event.target.value })
         }
+        fullWidth
       />
       <TextField
         label="Image URL"
@@ -149,24 +181,18 @@ const ItemEditor = () => {
         onChange={(event) =>
           setNewItem({ ...newItem, ImageURL: event.target.value })
         }
+        fullWidth
       />
+      </div>
 
       <Divider />
-      <div className="flex justify-end gap-4">
-        <Button
-          color="danger"
-          variant="flat"
-          className="rounded-md"
-          onClick={() => setNewItem(DEFAULT_ITEM)}
-        >
-          Discard
-        </Button>
-        <Button
-          onClick={onSave}
-          className="bg-[#4E2A84] hover:bg-[#4E2A84] text-white font-bold py-2 px-4 rounded-md"
-        >
-          Submit
-        </Button>
+      <div className="flex justify-end gap-2 mt-4">
+        <Button variant="outlined" color="error" onClick={() => setNewItem(DEFAULT_ITEM)}>
+            Discard
+          </Button>
+          <Button variant="contained" color="primary" onClick={onSave}>
+            Submit
+          </Button>
       </div>
       <Snackbar
         open={openSuccess}
@@ -179,7 +205,10 @@ const ItemEditor = () => {
         </Alert>
       </Snackbar>
     </Card>
+    </LocalizationProvider>
   );
 };
 
 export default ItemEditor;
+
+

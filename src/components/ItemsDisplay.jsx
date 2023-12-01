@@ -2,10 +2,12 @@ import React, { useState } from "react";
 import ItemCard from "./ItemCard";
 import Masonry from "@mui/lab/Masonry";
 import Pagination from "@mui/material/Pagination";
+import AppSpeedDial from './SpeedDial';
 
 const PAGE_SIZE = 30;
 
 const ItemsDisplay = ({ items, searchQuery }) => {
+  console.log("items:",items)
   const [currentPage, setCurrentPage] = useState(1);
 
   // Filter items based on search query
@@ -57,6 +59,7 @@ const ItemsDisplay = ({ items, searchQuery }) => {
           />
         </div>
       )}
+      <AppSpeedDial />
     </div>
   );
 };
