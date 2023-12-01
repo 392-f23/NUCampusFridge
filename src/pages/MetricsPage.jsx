@@ -26,41 +26,48 @@ const MetricsPage = () => {
 
     useEffect(() => {
         processData(items);
-    }, [items]);
+    }, [items, graphType]);
 
     const formatDate = (dateStr) => {
         return `${dateStr.substring(4, 6)}/${dateStr.substring(6, 8)}/${dateStr.substring(0, 4)}`;
     };
 
     const processData = (items) => {
+
+        let sortedData = [...items].sort((a, b) => a['Date Recovered'] - b['Date Recovered']);
         let lineChartData = {};
         let categoryCounts = {};
         let locationCounts = {};
+        let cumulativePounds = 0;
+        let cumulativePackages = 0;
 
-        items.forEach(item => {
-            // Process for line chart
+        sortedData.forEach(item => {
             const rawDate = item['Date Recovered'];
             const formattedDate = formatDate(rawDate);
-            if (rawDate) {
-                if (!lineChartData[rawDate]) {
-                    lineChartData[rawDate] = { poundsCollected: 0, prepackagedGoods: 0, rawDate, formattedDate };
-                }
-                if (item['Weight (in lbs)']) {
-                    lineChartData[rawDate].poundsCollected += item['Weight (in lbs)'];
-                }
-                if (item['If prepackaged, Quantity']) {
-                    lineChartData[rawDate].prepackagedGoods += item['If prepackaged, Quantity'];
-                }
+
+            // Line chart data
+            if (!lineChartData[rawDate]) {
+                lineChartData[rawDate] = { poundsCollected: 0, prepackagedGoods: 0, rawDate, formattedDate };
             }
 
-            // Process for pie charts
+            const itemPounds = item['Weight (in lbs)'] || 0;
+            const itemPackages = item['If prepackaged, Quantity'] || 0;
+            cumulativePounds += itemPounds;
+            cumulativePackages += itemPackages;
+
+            lineChartData[rawDate].poundsCollected = graphType === 'cumulative' ? cumulativePounds : lineChartData[rawDate].poundsCollected + itemPounds;
+            lineChartData[rawDate].prepackagedGoods = graphType === 'cumulative' ? cumulativePackages : lineChartData[rawDate].prepackagedGoods + itemPackages;
+
+            // Pie chart data
             const category = item['Category'];
             const location = item['Location'];
 
-            const lineDataArray = Object.values(lineChartData);
-
-            categoryCounts[category] = (categoryCounts[category] || 0) + 1;
-            locationCounts[location] = (locationCounts[location] || 0) + 1;
+            if (category) {
+                categoryCounts[category] = (categoryCounts[category] || 0) + 1;
+            }
+            if (location) {
+                locationCounts[location] = (locationCounts[location] || 0) + 1;
+            }
         });
 
         // Convert objects to arrays for chart compatibility
@@ -74,15 +81,34 @@ const MetricsPage = () => {
         setPieDataLocation(pieDataLocation);
     };
 
+    const titleStyle = {
+        textAlign: 'center',
+        color: '#22142b',
+        marginBottom: '20px'
+    };
+
+    const chartContainerStyle = {
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginBottom: '20px'
+    };
+
     return (
-        <Grid container spacing={3}>
-            <Grid item xs={12}>
-                <Typography variant="h4" gutterBottom>
-                    Food Collection Metrics
-                </Typography>
-            </Grid>
-            <Grid item xs={12} md={6}>
+        <Grid container spacing={3} style={{ marginTop: '70px'}}>
+            <Typography variant="h6" style={titleStyle} gutterBottom>
+                Food Collection Metrics
+            </Typography>
+            <Grid item xs={12} md={6} lg={4} style={chartContainerStyle}>
+                    
                 <Paper elevation={3}>
+                    <Typography variant="h6" style={titleStyle} gutterBottom>
+                        Collection Counts
+                    </Typography>
+                    <FormControlLabel
+                        control={<Switch checked={graphType === 'cumulative'} onChange={() => setGraphType(graphType === 'daily' ? 'cumulative' : 'daily')} />}
+                        label="Cumulative"
+                    />
                     <LineChart width={600} height={300} data={lineData} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
                         <CartesianGrid strokeDasharray="3 3" />
                         <XAxis dataKey="formattedDate" />
@@ -95,9 +121,9 @@ const MetricsPage = () => {
                 </Paper>
             </Grid>
 
-            <Grid item xs={12} md={6}>
+            <Grid item xs={12} md={6} lg={4} style={chartContainerStyle}>
                 <Paper elevation={3}>
-                    <Typography variant="h6" gutterBottom>
+                    <Typography variant="h6" style={titleStyle} gutterBottom>
                         Category Distribution
                     </Typography>
                     <PieChart width={800} height={400}>
@@ -124,9 +150,9 @@ const MetricsPage = () => {
                 </Paper>
             </Grid>
 
-            <Grid item xs={12} md={6}>
+            <Grid item xs={12} md={6} lg={4} style={chartContainerStyle}>
                 <Paper elevation={3}>
-                    <Typography variant="h6" gutterBottom>
+                    <Typography variant="h6" style={titleStyle} gutterBottom>
                         Location Distribution
                     </Typography>
                     <PieChart width={800} height={400}>
