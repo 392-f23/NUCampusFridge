@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
 import { alpha } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Table from '@mui/material/Table';
@@ -20,7 +20,10 @@ import FilterListIcon from '@mui/icons-material/FilterList';
 import { visuallyHidden } from '@mui/utils';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import DoNotDisturbOnIcon from '@mui/icons-material/DoNotDisturbOn';
+import TableFilter from './TableFilter';
 import Row from './Row';
+import { FormControlLabel, FormGroup, Switch, TextField } from '@mui/material';
+import useItemsStore from '../utilities/stores';
 
 const processWeightOrQuantity = (row) => {
   if (row["Weight (in lbs)"]) {
@@ -70,7 +73,7 @@ const headCells = [
   { id: 'Item', numeric: false, disablePadding: true, label: 'Item', sorted: true },
   { id: 'Category', numeric: false, disablePadding: false, label: 'Category', sorted: true },
   { id: 'Location', numeric: false, disablePadding: false, label: 'Location', sorted: true },
-  { id: 'weightOrQuantity', numeric: true, disablePadding: false, label: 'Weight/Quantity', sorted: true },
+  { id: 'weightOrQuantity', numeric: true, disablePadding: false, label: 'Weight / Quantity', sorted: true },
   { id: 'actions', numeric: false, disablePadding: false, label: 'Actions', sorted: false },
 ];
 
@@ -124,7 +127,7 @@ function EnhancedTableHead(props) {
 }
 
 function EnhancedTableToolbar(props) {
-  const { numSelected, onDeleteSelected, onPrepSelected, onUnprepSelected } = props;
+  const { numSelected, onDeleteSelected, onPrepSelected, onUnprepSelected, onFilterClick } = props;
 
   return (
     <Toolbar
@@ -176,8 +179,8 @@ function EnhancedTableToolbar(props) {
           </Tooltip>
         </>
       ) : (
-        <Tooltip title="Filter list">
-          <IconButton>
+        <Tooltip title="Filters">
+          <IconButton onClick={onFilterClick}>
             <FilterListIcon />
           </IconButton>
         </Tooltip>
@@ -193,8 +196,60 @@ const ItemsDisplay = ({ items }) => {
   const [page, setPage] = React.useState(0);
   const [dense, setDense] = React.useState(false);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  const [showFilters, setShowFilters] = React.useState(false);
+  const searchQuery = useItemsStore((state) => state.searchQuery);
+  const [rows, setRows] = React.useState(generateRows(items));
 
-  const rows = generateRows(items);
+  const [filters, setFilters] = React.useState({
+    Category: '',
+    Location: '',
+    Quantity: '',
+    CheckPrepped: false,
+    DateRecovered: ''
+  });
+
+  useEffect(() => {
+    setRows(
+      generateRows(items).filter(row => {
+        const matchesSearchQuery = searchQuery === '' || row.Item.toLowerCase().includes(searchQuery.toLowerCase())
+          || (row.Category && row.Category.join(' ').toLowerCase().includes(searchQuery.toLowerCase()))
+          || row.Location.toLowerCase().includes(searchQuery.toLowerCase());
+        const matchesCategory = filters.Category === '' || (row.Category && row.Category.includes(filters.Category));
+        const matchesLocation = filters.Location === '' || row.Location === filters.Location;
+        const matchesQuantity = filters.Quantity === '' || (row.weightOrQuantity >= parseFloat(filters.Quantity));
+        const matchesCheckPrepped = row["Check after prepped for delivery"] === (filters.CheckPrepped ? true : false);
+        const matchesDateRecovered = filters.DateRecovered === '' || row["Date Recovered"] === filters.DateRecovered;
+
+        return matchesCategory && matchesLocation && matchesQuantity && matchesCheckPrepped && matchesDateRecovered && matchesSearchQuery;
+      }));
+  }, [items, searchQuery, filters]);
+
+
+  // Handle filter change
+  const handleFilterChange = (filterName) => (event) => {
+    setFilters({
+      ...filters,
+      [filterName]: event.target.type === 'checkbox' ? event.target.checked : event.target.value
+    });
+  };
+
+  const getFilterOptions = (field) => {
+    return [...new Set(Object.values(items).map(item => item[field]))];
+  };
+
+  const getCategoryOptions = () => {
+    const allCategories = Object.values(items).flatMap(item => item.Category || []);
+    return [...new Set(allCategories)];
+  };
+
+  useEffect(() => {
+    // enable dense mode for smaller screens
+    if (window.innerWidth < 600) {
+      setDense(true);
+    } else {
+      setShowFilters(true);
+    }
+  }, []);
 
   const handleDeleteSelected = () => {
     // Implement deletion logic here
@@ -209,6 +264,10 @@ const ItemsDisplay = ({ items }) => {
   const handleUnprepSelected = () => {
     // Implement unprep logic here
     console.log('Selected items to unprep:', selected);
+  };
+
+  const handleFilterClick = () => {
+    setShowFilters(!showFilters);
   };
 
   const handleRequestSort = (event, property) => {
@@ -258,11 +317,35 @@ const ItemsDisplay = ({ items }) => {
 
   return (
     <Box sx={{ width: '100%' }}>
+      <div className={`${showFilters ? 'flex flex-col md:flex-row gap-4 py-2' : 'hidden'}`}>
+        <TableFilter label="Category" options={getCategoryOptions()} value={filters.Category} onChange={handleFilterChange('Category')} />
+        <TableFilter label="Location" options={getFilterOptions("Location")} value={filters.Location} onChange={handleFilterChange('Location')} />
+        <TextField
+          label="Minimum Quantity"
+          type="number"
+          value={filters.Quantity}
+          onChange={handleFilterChange('Quantity')}
+          variant="outlined"
+          fullWidth
+        />
+        <TableFilter label="Date Recovered" options={getFilterOptions("Date Recovered")} value={filters.DateRecovered} onChange={handleFilterChange('DateRecovered')} />
+        <FormControlLabel
+          control={
+            <Switch
+              checked={filters.CheckPrepped}
+              onChange={handleFilterChange('CheckPrepped')}
+              name="checkPrepped"
+            />
+          }
+          label="Prepped"
+        />
+      </div>
       <Paper sx={{ width: '100%', mb: 2 }}>
         <EnhancedTableToolbar numSelected={selected.length}
           onDeleteSelected={handleDeleteSelected}
           onPrepSelected={handlePrepSelected}
           onUnprepSelected={handleUnprepSelected}
+          onFilterClick={handleFilterClick}
         />
         <TableContainer>
           <Table
@@ -306,6 +389,12 @@ const ItemsDisplay = ({ items }) => {
           onRowsPerPageChange={handleChangeRowsPerPage}
         />
       </Paper>
+      <FormGroup>
+        <FormControlLabel
+          control={<Switch checked={dense} onChange={(event) => setDense(event.target.checked)} />}
+          label="Compact Table"
+        />
+      </FormGroup>
     </Box>
   );
 };

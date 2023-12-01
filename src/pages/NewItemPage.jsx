@@ -21,19 +21,16 @@ const NewItemPage = () => {
             <div className="bg-white p-4 shadow-lg rounded-lg">
               <p className="text-gray-800 text-lg">
                 Welcome to the New Food Item Page! Here you can conveniently add
-                details about food items. Whether it's a dish for a small family
-                dinner or a large catering event, our form makes it easy to enter
-                all the necessary information.
+                details about food items.
                 <br /><br />
                 Specify the food item's name, category, weight, and other relevant
                 details. Set the date when the food was prepped and recovered to
                 keep track of freshness. The temperature upon arrival can also be
                 noted for quality control.
                 <br /><br />
-                Don’t forget to add an attractive image of the food item. Once
+                Once
                 you've filled in all the information, just hit 'Submit' to add the
-                item to your inventory or menu. Manage your food items efficiently
-                and effectively!
+                item to the inventory.
               </p>
             </div>
           </div>

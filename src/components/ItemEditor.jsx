@@ -13,8 +13,6 @@ import {
   Snackbar,
 } from "@mui/material";
 import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
-import { LocalizationProvider } from '@mui/x-date-pickers';
-import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { v4 as uuid } from "uuid";
 import useItemsStore from "../utilities/stores";
 
@@ -58,22 +56,22 @@ const ItemEditor = () => {
       alert("Please fill out the Category field.");
       return;
     }
-    // Check if day prepped is empty
-    if (!newItem["Date Prepped"]) {
-      alert("Please fill out the Date Prepped field.");
+    // Check if date recovered is empty
+    if (!newItem["Date Recovered"]) {
+      alert("Please fill out the Date Recovered field.");
       return;
     }
-    // Check if day prepped or day recovered is in the future
+    // Check if date prepped or date recovered is in the future
     if (newItem["Date Prepped"] && new Date(newItem["Date Prepped"]) > new Date()) {
       alert("Date prepped cannot be in the future.");
       return;
     }
-    // Check if day recovered is in the future
+    // Check if date recovered is in the future
     if (newItem["Date Recovered"] && new Date(newItem["Date Recovered"]) > new Date()) {
       alert("Date recovered cannot be in the future.");
       return;
     }
-    // Check if day recovered is before day prepped
+    // Check if date recovered is before date prepped
     if (newItem["Date Prepped"] && newItem["Date Recovered"]) {
       if (new Date(newItem["Date Prepped"]) > new Date(newItem["Date Recovered"])) {
         alert("Date recovered cannot be before date prepped.");
@@ -90,6 +88,28 @@ const ItemEditor = () => {
         alert("Arrival temperature must be between 0 and 500 degrees Fahrenheit.");
       }
     }
+    // Check if the weight is a number and is greater than 0
+    if (newItem.WeightOrQuantity === "weight") {
+      if (isNaN(newItem["Weight (in lbs)"])) {
+        alert("Weight must be a number.");
+        return;
+      }
+      if (newItem["Weight (in lbs)"] <= 0) {
+        alert("Weight must be greater than 0.");
+        return;
+      }
+    }
+    // Check if the quantity is a number and is greater than 0
+    if (newItem.WeightOrQuantity === "quantity") {
+      if (isNaN(newItem["If prepackaged, Quantity"])) {
+        alert("Quantity must be a number.");
+        return;
+      }
+      if (newItem["If prepackaged, Quantity"] <= 0) {
+        alert("Quantity must be greater than 0.");
+        return;
+      }
+    }
 
     // Copy the current state to a new object
     let itemToAdd = { ...newItem };
@@ -97,22 +117,25 @@ const ItemEditor = () => {
     // Set default values for fields if they are empty
     itemToAdd.ImageURL = itemToAdd.ImageURL || "";
     itemToAdd['Arrival Temperature (in F)'] = itemToAdd['Arrival Temperature (in F)'] || 'N/A';
-    itemToAdd['Check after prepped for delivery'] = itemToAdd['Check after prepped for delivery'] || 'TBC';
+    itemToAdd['Check after prepped for delivery'] = itemToAdd['Check after prepped for delivery'] || false;
     // Get the day of the week from the Date Prepped field
     itemToAdd.Day = itemToAdd['Date Prepped'] ? new Date(itemToAdd['Date Prepped']).toLocaleDateString('en-US', { weekday: 'long' }) : '';
     itemToAdd.Location = itemToAdd.Location || 'Unknown Location';
     if (itemToAdd.WeightOrQuantity === "weight") {
-      itemToAdd['If prepackaged, Quantity'] = '';
+      itemToAdd['If prepackaged, Quantity'] = null;
     } else {
-      itemToAdd['Weight (in lbs)'] = '';
+      itemToAdd['Weight (in lbs)'] = null;
     }
 
     // Format dates
     if (itemToAdd['Date Prepped']) {
-      itemToAdd['Date Prepped'] = new Date(itemToAdd['Date Prepped']).toISOString();
+      const dateString = new Date(itemToAdd['Date Prepped']).toISOString();
+      // Store in format YYYYMMDD without time
+      itemToAdd['Date Prepped'] = dateString.split("T")[0].replace(/-/g, "");
     }
     if (itemToAdd['Date Recovered']) {
-      itemToAdd['Date Recovered'] = new Date(itemToAdd['Date Recovered']).toISOString();
+      const dateString = new Date(itemToAdd['Date Recovered']).toISOString();
+      itemToAdd['Date Recovered'] = dateString.split("T")[0].replace(/-/g, "");
     }
     itemToAdd.Category = itemToAdd.Category ? itemToAdd.Category.split(",").map(cat => cat.trim()) : [];
     itemToAdd.id = "ITEM-" + uuid();
@@ -131,10 +154,8 @@ const ItemEditor = () => {
   };
 
   return (
-    <LocalizationProvider dateAdapter={AdapterDateFns}>
       <Card className="p-4 flex flex-col gap-4 bg-white shadow-lg rounded">
         <Typography variant="h6" className="text-center text-lg font-semibold">Create a New Item</Typography>
-
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <TextField
             label="Item Name"
@@ -164,7 +185,11 @@ const ItemEditor = () => {
             onChange={(date) =>
               setNewItem({ ...newItem, "Date Prepped": date ? formatDate(date) : "" })
             }
-            renderInput={(params) => <TextField {...params} fullWidth />}
+            disableFuture
+            textField={(params) => <TextField {...params} fullWidth />}
+            format="MM/dd/yyyy"
+            view="day"
+            views={["day", "month", "year"]}
           />
           <DateTimePicker
             label="Date Recovered"
@@ -172,7 +197,11 @@ const ItemEditor = () => {
             onChange={(date) =>
               setNewItem({ ...newItem, "Date Recovered": date ? formatDate(date) : "" })
             }
-            renderInput={(params) => <TextField {...params} fullWidth />}
+            disableFuture
+            textField={(params) => <TextField {...params} fullWidth />}
+            format="MM/dd/yyyy"
+            view="day"
+            views={["day", "month", "year"]}
           />
           <FormControl component="fieldset">
             <RadioGroup
@@ -256,7 +285,6 @@ const ItemEditor = () => {
           </Alert>
         </Snackbar>
       </Card>
-    </LocalizationProvider>
   );
 };
 
