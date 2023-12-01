@@ -20,6 +20,10 @@ import { signInWithGoogle, signOut, useAuthState } from "../utilities/firebase";
 import { useProfile } from "../utilities/profile";
 import { Logout } from "@mui/icons-material";
 
+import LocationFilter from './LocationFilter';
+import CategoryFilter from './CategoryFilter';
+import DateFilter from './DateFilter';
+
 import { Navigate, useNavigate } from "react-router-dom";
 
 const pages = [
@@ -29,10 +33,22 @@ const pages = [
   },
 ];
 
-const Banner = ({ handleSearch }) => {
+const Banner = ({ handleSearch, data, onFiltersChange }) => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const [profile, profileLoading, profileError] = useProfile();
+
+  const handleLocationChange = (selectedLocations) => {
+    onFiltersChange({ type: 'location', value: selectedLocations });
+  };
+
+  const handleCategoryChange = (selectedCategories) => {
+    onFiltersChange({ type: 'category', value: selectedCategories });
+  };
+
+  const handleDateChange = (dateRange) => {
+    onFiltersChange({ type: 'date', value: dateRange });
+  };
 
   const [user] = useAuthState();
 
@@ -147,6 +163,9 @@ const Banner = ({ handleSearch }) => {
               );
             })}
           </Box>
+          <LocationFilter data={data} onLocationChange={(selectedLocations) => onFiltersChange({ type: 'location', value: selectedLocations })} />
+          <CategoryFilter data={data} onCategoryChange={(selectedCategories) => onFiltersChange({ type: 'category', value: selectedCategories })} />
+          <DateFilter onDateChange={(dateRange) => onFiltersChange({ type: 'date', value: dateRange })} />
           <SearchBar handleSearch={handleSearch} className="p-2" />
           {user ? (
             <Box sx={{ flexGrow: 0 }}>
