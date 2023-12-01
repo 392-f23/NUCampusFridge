@@ -31,17 +31,16 @@ const MetricsPage = () => {
     const formatDate = (dateStr) => {
         return `${dateStr.substring(4, 6)}/${dateStr.substring(6, 8)}/${dateStr.substring(0, 4)}`;
     };
-
+    
     const processData = (items) => {
-
-        let sortedData = [...items].sort((a, b) => a['Date Recovered'] - b['Date Recovered']);
+        let sortedData = Object.entries(items).sort((a, b) => a[1]['Date Recovered'] - b[1]['Date Recovered']);
         let lineChartData = {};
         let categoryCounts = {};
         let locationCounts = {};
         let cumulativePounds = 0;
         let cumulativePackages = 0;
 
-        sortedData.forEach(item => {
+        sortedData.forEach(([key, item]) => {
             const rawDate = item['Date Recovered'];
             const formattedDate = formatDate(rawDate);
 

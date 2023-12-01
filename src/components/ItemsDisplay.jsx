@@ -9,9 +9,9 @@ const ItemsDisplay = ({ items, searchQuery }) => {
   const [currentPage, setCurrentPage] = useState(1);
 
   // Filter items based on search query
-  const filteredItems = items.filter(item => 
-    item.Location && item.Location.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  const filteredItems = Object.keys(items).filter(key => 
+    items[key].Location && items[key].Location.toLowerCase().includes(searchQuery.toLowerCase())
+  ).map(key => items[key]);
 
   const totalPages = Math.ceil(filteredItems.length / PAGE_SIZE); // Use filteredItems for pagination
 
